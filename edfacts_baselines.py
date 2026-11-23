@@ -111,7 +111,7 @@ def benchmark():
     selected,_=load(False)
     cases=[(*inputs(sites),sites) for _,(_,sites) in sorted(selected.items())]
 
-    def run(method):
+    def run(method, fallback):
         start=perf_counter()
         counts=[0,0,0]  # within tolerance, witnessed violation, projected fallbacks
         for anchor,groups,sites in cases:
@@ -119,10 +119,10 @@ def benchmark():
             if method=="chord":
                 br=linear_certificate(anchor,groups,.1)
                 d=decision((br.inner_lower,br.inner_upper),(br.lower,br.upper),.05)
-            elif method!="direct":
+            else:
                 v=bounds(anchor,groups,.1,(method,))
                 d=decision(v["inner"],v[method],.05)
-            if d=="open":
+            if d=="open" and fallback:
                 counts[2]+=1
                 e=envelope(anchor,groups,.1)
                 if radius((e.lower.value,e.upper.value))<=.05+EPS:
@@ -130,7 +130,10 @@ def benchmark():
                 else:
                     lo,hi=endpoints(anchor,sites,.1)
                     d="pass" if radius((lo.value,hi.value))<=.05+EPS else "violation"
-            counts[d=="violation"]+=1
+            if d=="pass":
+                counts[0]+=1
+            elif d=="violation":
+                counts[1]+=1
         return perf_counter()-start,counts
 
     # Direct primary projected and joint radii were previously verified equal.
@@ -147,10 +150,12 @@ def benchmark():
     records={m:[] for m in methods}
     for rep in range(6):
         for m in methods[rep:]+methods[:rep]:
-            sec,counts=direct() if m=="direct" else run(m)
+            sec,counts=direct() if m=="direct" else run(m,True)
+            scan_sec,scan_counts=(None,None) if m=="direct" else run(m,False)
             assert counts[:2]==[192,225]
             if rep:
-                records[m].append(dict(seconds=sec,projected_calls=counts[2]))
+                records[m].append(dict(seconds=sec,screen_only_seconds=scan_sec,
+                                       first_pass_counts=scan_counts,projected_calls=counts[2]))
     report=dict(scope="417 prepared inputs; standalone screen followed by exact fallback; direct projected reference",
                 warm_runs=5,methods=records)
     (OUT/"baseline_timing.json").write_bytes((json.dumps(report,indent=2)+"\n").encode())
