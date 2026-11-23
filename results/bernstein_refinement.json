@@ -1,0 +1,72 @@
+[
+  {
+    "district": "0614760",
+    "name": "Fullerton Joint Union High",
+    "rho": 0.25,
+    "rule": "nearest",
+    "exact": [
+      {
+        "change_pp": -6.754995941304527,
+        "school_i": "061476001816",
+        "school_j": "061476007723",
+        "fraction_at_i": 0.691541157708195
+      },
+      {
+        "change_pp": 6.525143834279542,
+        "school_i": "061476001809",
+        "school_j": "061476001810",
+        "fraction_at_i": 1
+      }
+    ],
+    "levels": [
+      {
+        "pieces": 1,
+        "outer_pp": [
+          -9.02097885350897,
+          6.525143834279541
+        ],
+        "decisions": {
+          "2.5": "violation",
+          "5": "violation",
+          "7.5": "open"
+        }
+      },
+      {
+        "pieces": 2,
+        "outer_pp": [
+          -7.483985749530213,
+          6.525143834279541
+        ],
+        "decisions": {
+          "2.5": "violation",
+          "5": "violation",
+          "7.5": "pass"
+        }
+      },
+      {
+        "pieces": 4,
+        "outer_pp": [
+          -6.8843876940938475,
+          6.525143834279541
+        ],
+        "decisions": {
+          "2.5": "violation",
+          "5": "violation",
+          "7.5": "pass"
+        }
+      },
+      {
+        "pieces": 8,
+        "outer_pp": [
+          -6.801565656041136,
+          6.525143834279541
+        ],
+        "decisions": {
+          "2.5": "violation",
+          "5": "violation",
+          "7.5": "pass"
+        }
+      }
+    ]
+  }
+]

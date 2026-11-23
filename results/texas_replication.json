@@ -1,0 +1,58 @@
+{
+  "flow": {
+    "districts_all": 1203,
+    "incomplete_districts": 315,
+    "missing_row_count_or_percent": 434,
+    "schools_all": 8169,
+    "selected_districts": 506,
+    "selected_schools": 2668,
+    "size_excluded_districts": 382,
+    "zero_or_invalid_group": 6
+  },
+  "exact_pass": 220,
+  "projection_flips": 0,
+  "methods": {
+    "chord": {
+      "pass": 197,
+      "violation": 286,
+      "open": 23,
+      "chord_only": 0,
+      "comparator_only": 0
+    },
+    "groupwise": {
+      "pass": 153,
+      "violation": 286,
+      "open": 67,
+      "chord_only": 52,
+      "comparator_only": 8
+    },
+    "tv_transfer": {
+      "pass": 213,
+      "violation": 286,
+      "open": 7,
+      "chord_only": 0,
+      "comparator_only": 16
+    },
+    "reciprocal": {
+      "pass": 219,
+      "violation": 286,
+      "open": 1,
+      "chord_only": 0,
+      "comparator_only": 22
+    },
+    "linear_intersection": {
+      "pass": 219,
+      "violation": 286,
+      "open": 1,
+      "chord_only": 0,
+      "comparator_only": 22
+    },
+    "bernstein": {
+      "pass": 220,
+      "violation": 286,
+      "open": 0,
+      "chord_only": 0,
+      "comparator_only": 23
+    }
+  }
+}

@@ -1,0 +1,350 @@
+{
+  "scope": "417 prepared inputs; standalone screen followed by exact fallback; direct projected reference",
+  "warm_runs": 5,
+  "methods": {
+    "chord": [
+      {
+        "seconds": 0.05296709999674931,
+        "screen_only_seconds": 0.008389700000407174,
+        "first_pass_counts": [
+          162,
+          225,
+          0
+        ],
+        "projected_calls": 30
+      },
+      {
+        "seconds": 0.05345350000425242,
+        "screen_only_seconds": 0.008316899999044836,
+        "first_pass_counts": [
+          162,
+          225,
+          0
+        ],
+        "projected_calls": 30
+      },
+      {
+        "seconds": 0.053612599993357435,
+        "screen_only_seconds": 0.008345299997017719,
+        "first_pass_counts": [
+          162,
+          225,
+          0
+        ],
+        "projected_calls": 30
+      },
+      {
+        "seconds": 0.053077100004884414,
+        "screen_only_seconds": 0.008434400006080978,
+        "first_pass_counts": [
+          162,
+          225,
+          0
+        ],
+        "projected_calls": 30
+      },
+      {
+        "seconds": 0.052830400003585964,
+        "screen_only_seconds": 0.008305199997266755,
+        "first_pass_counts": [
+          162,
+          225,
+          0
+        ],
+        "projected_calls": 30
+      }
+    ],
+    "groupwise": [
+      {
+        "seconds": 0.14803200001188088,
+        "screen_only_seconds": 0.00940959999570623,
+        "first_pass_counts": [
+          120,
+          225,
+          0
+        ],
+        "projected_calls": 72
+      },
+      {
+        "seconds": 0.14833760001056362,
+        "screen_only_seconds": 0.009579899997333996,
+        "first_pass_counts": [
+          120,
+          225,
+          0
+        ],
+        "projected_calls": 72
+      },
+      {
+        "seconds": 0.1510608999960823,
+        "screen_only_seconds": 0.009419699999853037,
+        "first_pass_counts": [
+          120,
+          225,
+          0
+        ],
+        "projected_calls": 72
+      },
+      {
+        "seconds": 0.14912349999940488,
+        "screen_only_seconds": 0.009405700009665452,
+        "first_pass_counts": [
+          120,
+          225,
+          0
+        ],
+        "projected_calls": 72
+      },
+      {
+        "seconds": 0.14854870000272058,
+        "screen_only_seconds": 0.009366300000692718,
+        "first_pass_counts": [
+          120,
+          225,
+          0
+        ],
+        "projected_calls": 72
+      }
+    ],
+    "tv_transfer": [
+      {
+        "seconds": 0.02513310000358615,
+        "screen_only_seconds": 0.011675300003844313,
+        "first_pass_counts": [
+          183,
+          225,
+          0
+        ],
+        "projected_calls": 9
+      },
+      {
+        "seconds": 0.025425300002098083,
+        "screen_only_seconds": 0.011380500000086613,
+        "first_pass_counts": [
+          183,
+          225,
+          0
+        ],
+        "projected_calls": 9
+      },
+      {
+        "seconds": 0.025020600005518645,
+        "screen_only_seconds": 0.011171200007083826,
+        "first_pass_counts": [
+          183,
+          225,
+          0
+        ],
+        "projected_calls": 9
+      },
+      {
+        "seconds": 0.025085500004934147,
+        "screen_only_seconds": 0.011336499999742955,
+        "first_pass_counts": [
+          183,
+          225,
+          0
+        ],
+        "projected_calls": 9
+      },
+      {
+        "seconds": 0.025081999992835335,
+        "screen_only_seconds": 0.011369300002115779,
+        "first_pass_counts": [
+          183,
+          225,
+          0
+        ],
+        "projected_calls": 9
+      }
+    ],
+    "reciprocal": [
+      {
+        "seconds": 0.01767039998958353,
+        "screen_only_seconds": 0.01625080000667367,
+        "first_pass_counts": [
+          191,
+          225,
+          0
+        ],
+        "projected_calls": 1
+      },
+      {
+        "seconds": 0.01763349999964703,
+        "screen_only_seconds": 0.01626639999449253,
+        "first_pass_counts": [
+          191,
+          225,
+          0
+        ],
+        "projected_calls": 1
+      },
+      {
+        "seconds": 0.017836900005931966,
+        "screen_only_seconds": 0.016312899999320507,
+        "first_pass_counts": [
+          191,
+          225,
+          0
+        ],
+        "projected_calls": 1
+      },
+      {
+        "seconds": 0.017569000003277324,
+        "screen_only_seconds": 0.01661339998827316,
+        "first_pass_counts": [
+          191,
+          225,
+          0
+        ],
+        "projected_calls": 1
+      },
+      {
+        "seconds": 0.01757050000014715,
+        "screen_only_seconds": 0.01623670000117272,
+        "first_pass_counts": [
+          191,
+          225,
+          0
+        ],
+        "projected_calls": 1
+      }
+    ],
+    "linear_intersection": [
+      {
+        "seconds": 0.021441399992909282,
+        "screen_only_seconds": 0.01949919998878613,
+        "first_pass_counts": [
+          192,
+          225,
+          0
+        ],
+        "projected_calls": 0
+      },
+      {
+        "seconds": 0.018793000010191463,
+        "screen_only_seconds": 0.019048900008783676,
+        "first_pass_counts": [
+          192,
+          225,
+          0
+        ],
+        "projected_calls": 0
+      },
+      {
+        "seconds": 0.018949600009364076,
+        "screen_only_seconds": 0.018514800001867115,
+        "first_pass_counts": [
+          192,
+          225,
+          0
+        ],
+        "projected_calls": 0
+      },
+      {
+        "seconds": 0.019017500002519228,
+        "screen_only_seconds": 0.01908309999271296,
+        "first_pass_counts": [
+          192,
+          225,
+          0
+        ],
+        "projected_calls": 0
+      },
+      {
+        "seconds": 0.01876829999673646,
+        "screen_only_seconds": 0.01874800000223331,
+        "first_pass_counts": [
+          192,
+          225,
+          0
+        ],
+        "projected_calls": 0
+      }
+    ],
+    "bernstein": [
+      {
+        "seconds": 0.031045000010635704,
+        "screen_only_seconds": 0.0308870000008028,
+        "first_pass_counts": [
+          192,
+          225,
+          0
+        ],
+        "projected_calls": 0
+      },
+      {
+        "seconds": 0.03061639999214094,
+        "screen_only_seconds": 0.03102910000598058,
+        "first_pass_counts": [
+          192,
+          225,
+          0
+        ],
+        "projected_calls": 0
+      },
+      {
+        "seconds": 0.0304391000099713,
+        "screen_only_seconds": 0.030549600007361732,
+        "first_pass_counts": [
+          192,
+          225,
+          0
+        ],
+        "projected_calls": 0
+      },
+      {
+        "seconds": 0.031243400007952005,
+        "screen_only_seconds": 0.03073069998936262,
+        "first_pass_counts": [
+          192,
+          225,
+          0
+        ],
+        "projected_calls": 0
+      },
+      {
+        "seconds": 0.03045120000024326,
+        "screen_only_seconds": 0.03042569999524858,
+        "first_pass_counts": [
+          192,
+          225,
+          0
+        ],
+        "projected_calls": 0
+      }
+    ],
+    "direct": [
+      {
+        "seconds": 0.49137260000861716,
+        "screen_only_seconds": null,
+        "first_pass_counts": null,
+        "projected_calls": 417
+      },
+      {
+        "seconds": 0.4924004999920726,
+        "screen_only_seconds": null,
+        "first_pass_counts": null,
+        "projected_calls": 417
+      },
+      {
+        "seconds": 0.4933607999992091,
+        "screen_only_seconds": null,
+        "first_pass_counts": null,
+        "projected_calls": 417
+      },
+      {
+        "seconds": 0.4876681000023382,
+        "screen_only_seconds": null,
+        "first_pass_counts": null,
+        "projected_calls": 417
+      },
+      {
+        "seconds": 0.49165589999756776,
+        "screen_only_seconds": null,
+        "first_pass_counts": null,
+        "projected_calls": 417
+      }
+    ]
+  }
+}

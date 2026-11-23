@@ -4,24 +4,29 @@ Yunjie Guo and Hanqing Yang · Independent Researcher, Suzhou, China
 
 [Manuscript (PDF)](paper/manuscript.pdf) · [LaTeX source](paper/manuscript.tex) · [Study design and amendments](DESIGN.md)
 
-A disclosure-protected table can identify how much a two-group rate gap could change under different site weights. Baseline and target must use the same feasible counts. The exact algorithm returns attainable endpoints under proportional replacement of the baseline mix. A linear-time scan can certify either that all changes are within a specified tolerance or that an admissible violation exists. Exact search resolves the remaining cases.
+A disclosure-protected table can identify how much a two-group rate gap could change under different site weights. Baseline and target must use the same feasible counts. The exact algorithm returns attainable endpoints under proportional replacement of the baseline mix. The audit distinguishes a guaranteed tolerance from an attainable violation. The code includes linear-time screens, rational Bernstein bounds and an exact calculation with an attaining recipient mix.
 
 ## External validation on released school proficiency bands
 
 The US Department of Education published all-student and English-learner mathematics proficiency bands for the 2018–19 school year. The California audit uses 3,571 schools in 417 actual districts and the native percentages, ranges and suppression markers. The estimand holds school proficiency patterns fixed. It describes possible composition effects on the learner-minus-complement gap. The information set is the ALL and LEP all-grade rows. [EDFacts source archive and documentation](https://www.eddatacenter.org/edfacts)
 
-* For 10% replacement and a five-percentage-point tolerance, separate-table subtraction certifies 0 districts and shared-table exact search certifies 192. The scan settles 387 decisions (162 pass, 225 admit a violation). Exact search on tightened individual cell ranges certifies the remaining 30.
-* Full joint search over the school count polygons changes none of the 417 primary decisions. Across the three replacement shares and preset tolerances of 2.5, 5 and 7.5 points, the two exact procedures agree on every classification.
-* Under fixed equal-school weighting, joint optimization reduces the two-sided radius by at least 0.1 points in nine districts. One exploratory direction decision changes at Old Adobe Union under nearest-percent decoding, but the margin is only 0.00190 points and the conclusion disappears under the conservative encoding.
-* The primary contribution is screening with a shared table and a sharp fallback calculation. We treat fully constrained search as a last step when the projected answer is inconclusive; these data provide little support for a broad claim of additional decision utility from polygons.
+* At 10% replacement and a five-percentage-point tolerance, the California sharp reference certifies 192 districts and finds admissible violations in 225. The original chord screen settles 387/417, including 162 certifications. Separate-table subtraction certifies zero.
+* With identical inputs and single-school witnesses, the groupwise, total-variation and reciprocal-denominator screens settle 345, 408 and 416 decisions respectively. Intersecting the three bounds settles all 417, including every case left open by the chord screen.
+* The Texas protocol was fixed after the California comparison and before inspecting Texas records. Among 506 eligible districts and 2,668 schools, the chord screen settles 483, the three linear bounds settle 505, and the degree-two Bernstein bound settles all 506. The exact reference certifies 220. California and Texas share a release and school year.
+* At California’s 25% replacement and 7.5-point sensitivity, Fullerton Joint Union High has a sharp lower endpoint of −6.755 points. Two recipient schools attain it. One ordinary Bernstein subdivision already certifies the threshold. The exact solver supplies the attainable endpoint and mix in a finite edge search.
+* A fixed equal-school comparison gives a further limit on the role of the full count polygon. A single exploratory directional classification changes in California under nearest-percent decoding. Its margin of 0.00190 points disappears under conservative decoding.
 
-The external results are [district endpoints and switching intervals](results/edfacts_districts.csv), [case selection and threshold comparisons](results/edfacts_summary.json), [screening and sign checks](results/edfacts_screen.json), and [Windows verification](results/edfacts_verification.txt). The switching interval for a two-sided tolerance has endpoints joint_radius_pp (inclusive) and proj_radius_pp (exclusive), subject to floating-point precision.
+The submission case is a short applied-statistics methods article on sharp shared-release composition bounds, attainable mixtures and the performance of standard screens. The paired results withdraw the earlier interpretation of 387/417 as an empirical advantage of the chord screen. Its second-order example characterizes the possible error from restricting recipients to a single school. Direct use of the existing total-variation inequality also achieves a second-order allowance.
+
+[California paired comparison](results/baseline_comparison.csv) · [District results](results/baseline_districts.csv) · [Windows timings](results/baseline_timing.json) · [Texas selection and replication](results/texas_replication.json) · [Texas district results](results/texas_districts.csv) · [Fullerton subdivision and attaining mix](results/bernstein_refinement.json)
+
+[California exact endpoints](results/edfacts_districts.csv) · [Selection and threshold comparisons](results/edfacts_summary.json) · [Original screening and sign checks](results/edfacts_screen.json) · [Original Windows verification](results/edfacts_verification.txt)
 
 ## What changes when institution totals are public?
 
 With a 5 percentage-point tolerance, 10% replacement and rounding to tens, the sharp audit retains all 13 previously certified small panels and newly certifies 2022 small panel 5. The total is 14/20 for the exact method and 12/20 for the linear-time outer certificate. Within the original 13, the counts are 13 and 12. The other exact-only case is 2023 small panel 9. All 40 medium and large panels pass both methods. Withholding the two residual admission cells leaves these decisions unchanged. Missing group admissions are bounded by application capacity and the total.
 
-The public-total method uses integer vertices of a count rectangle intersected with a sum band. The upper and lower endpoints are sharp under that release. Applying the older exact solver to the tightened marginal ranges gives the same threshold decisions here. The maximum endpoint difference is below 0.00064 percentage points. The evidence supports a short applied-statistics methods paper on guarantees and the limits of fast screening. The incremental decision benefit over the scan is two panels, down from four before totals were public. Rounding and panel construction remain experimental choices.
+The public-total method uses integer vertices of a count rectangle intersected with a sum band. The upper and lower endpoints are sharp under that release. Applying the older exact solver to the tightened marginal ranges gives the same threshold decisions here. The maximum endpoint difference is below 0.00064 percentage points. These panel comparisons predate the shared-table baseline and geographic validation above. The incremental decision benefit over the scan is two panels, down from four before totals were public. Rounding and panel construction remain experimental choices.
 
 ## Reproduce
 
@@ -41,6 +46,13 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe edfacts_audit.py --verify
 .\.venv\Scripts\python.exe edfacts_screen.py
 .\.venv\Scripts\python.exe edfacts_screen.py --verify
+.\.venv\Scripts\python.exe edfacts_baselines.py
+.\.venv\Scripts\python.exe edfacts_baselines.py --verify
+.\.venv\Scripts\python.exe edfacts_baselines.py --timing
+.\.venv\Scripts\python.exe texas_replication.py
+.\.venv\Scripts\python.exe texas_replication.py --verify
+.\.venv\Scripts\python.exe bernstein_refinement.py
+.\.venv\Scripts\python.exe bernstein_refinement.py --verify
 ```
 
 Each command should exit successfully before the next. On other systems the same scripts accept a Python 3.12 interpreter. The verifier checks all 1,800 attaining witnesses by direct substitution and tests interval nesting. It regenerates seven analysis files in a temporary directory, including the comparison of linear-scan and pairwise inner widths. CSV contents are checked byte-for-byte. JSON comparisons allow OS-specific line endings and environment metadata. The numerical run and independent replay used code commit `264492d`. The wall-time benchmark is machine-dependent and reported separately. To regenerate the paper figure use Python with Matplotlib and run `python paper/figures.py`. Compile the manuscript from `paper/` with `tectonic manuscript.tex`.
@@ -82,4 +94,4 @@ The [public-total audit](public_totals.py) reads the pinned public inputs and or
 
 ## EDFacts input provenance
 
-The bundled [California public rows](data/edfacts_ca_math_1819.csv) are a column and row subset of the federal school mathematics file, snapshot 13 August 2020. The national ZIP was obtained from the Education Data Center archival mirror. To regenerate the subset, run the [extractor](edfacts_extract.py) with the downloaded ZIP path; it verifies the original SHA-256 and preserves the published labels. The extractor produced 19,360 rows. The analysis pins the resulting bytes and records every district selection loss. Only district-level audit outputs are reported. [National ZIP](https://storage.googleapis.com/edc-education-exports/edfacts/math-achievement-sch-sy2018-19-long.zip) · [Federal public-file documentation](https://storage.googleapis.com/edc-education-exports/edfacts/assessments-sy2018-19-public-file-documentation.docx)
+The bundled [California public rows](data/edfacts_ca_math_1819.csv) are a column and row subset of the federal school mathematics file, snapshot 13 August 2020. The national ZIP was obtained from the Education Data Center archival mirror. To regenerate the subset, run the [extractor](edfacts_extract.py) with the downloaded ZIP path; it verifies the original SHA-256 and preserves the published labels. The extractor produced 19,360 rows. The analysis pins the resulting bytes and records every district selection loss. Passing FIPS code 48 as the second extractor argument regenerates the 15,907 [Texas public rows](data/edfacts_tx_math_1819.csv). The Fullerton case identifies the two receiving schools by their public identifiers. [National ZIP](https://storage.googleapis.com/edc-education-exports/edfacts/math-achievement-sch-sy2018-19-long.zip) · [Federal public-file documentation](https://storage.googleapis.com/edc-education-exports/edfacts/assessments-sy2018-19-public-file-documentation.docx)
