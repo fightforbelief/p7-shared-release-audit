@@ -14,6 +14,12 @@ A consortium may know the number of applications by site and group while having 
 
 At 10% replacement with admissions rounded to tens, the median range for small institutions is 7.23 percentage points with a shared table and 21.82 points with separate tables. Across the 24 complete next-year panels, five observed changes exceed the frozen-site exact-count range. The analysis supports submission as a finite-table sensitivity method for statistical disclosure and applied statistics. The study does not establish priority over all literature or guarantee journal acceptance.
 
+## What changes when institution totals are public?
+
+With a 5 percentage-point tolerance, 10% replacement and rounding to tens, the sharp audit retains all 13 previously certified small panels and newly certifies 2022 small panel 5. The total is 14/20 for the exact method and 12/20 for the linear-time outer certificate. Within the original 13, the counts are 13 and 12. The other exact-only case is 2023 small panel 9. All 40 medium and large panels pass both methods. Withholding the two residual admission cells leaves these decisions unchanged. Missing group admissions are bounded by application capacity and the total.
+
+The public-total method uses integer vertices of a count rectangle intersected with a sum band. The upper and lower endpoints are sharp under that release. Applying the older exact solver to the tightened marginal ranges gives the same threshold decisions here. The maximum endpoint difference is below 0.00064 percentage points. The evidence supports a short applied-statistics methods paper on guarantees and the limits of fast screening. The incremental decision benefit over the scan is two panels, down from four before totals were public. Rounding and panel construction remain experimental choices.
+
 ## Reproduce
 
 The experiments ran on hanqing-win in the project-root Python 3.12.10 virtual environment. All research code uses the standard library. From a clean checkout on Windows, the commands are:
@@ -26,6 +32,8 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe curvature.py
 .\.venv\Scripts\python.exe verify.py
 .\.venv\Scripts\python.exe benchmark.py
+.\.venv\Scripts\python.exe public_totals.py
+.\.venv\Scripts\python.exe public_totals.py --verify
 ```
 
 Each command should exit successfully before the next. On other systems the same scripts accept a Python 3.12 interpreter. The verifier checks all 1,800 attaining witnesses by direct substitution and tests interval nesting. It regenerates seven analysis files in a temporary directory, including the comparison of linear-scan and pairwise inner widths. CSV contents are checked byte-for-byte. JSON comparisons allow OS-specific line endings and environment metadata. The numerical run and independent replay used code commit `264492d`. The wall-time benchmark is machine-dependent and reported separately. To regenerate the paper figure use Python with Matplotlib and run `python paper/figures.py`. Compile the manuscript from `paper/` with `tectonic manuscript.tex`.
@@ -61,3 +69,5 @@ The two bundled ZIPs are the public NCES IPEDS admissions archives retrieved on 
 | [Next-year replay](results/next_year.csv) and [summary](results/replay.json) | Actual changes, frozen-site transport, extremal ranges and excluded panels |
 | [Linear scan](results/curvature.csv) | Curvature allowances expressed through outer endpoints, excess widths and rounded plug-in comparison |
 | [Timing](results/timing.csv) | Five timed runs following warm-up per size and method |
+
+The [public-total audit](public_totals.py) reads the pinned public inputs and original profile and scan files. Its [paired panel results](results/public_total_panels.csv), [summary](results/public_total_summary.json) and [Windows verification](results/public_total_verification.txt) document both releases. Output probabilities are proportions and summary widths are percentage points. The exact polygon endpoints are checked by enumerating feasible integer counts at the returned weights, and a separate three-site oracle checks the full simplex and every feasible integer table.
