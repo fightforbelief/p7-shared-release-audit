@@ -1,0 +1,19 @@
+# Analysis specification, 23 November 2026
+
+Written before inspecting IPEDS values or running the solver. This is a timestamped development specification, not a registered confirmatory study.
+
+## Question and estimand
+
+For an anchor application mix b, replace a share rho with any mix of the same institutions, preserving both within-site group proportions and outcome rates. Compute the attainable worst upward and downward change in the women-minus-men admission-rate gap relative to the same anchor and same latent table. Evaluate exact counts and rectangular count uncertainty. Compare against allowing anchor and target to use different tables, against one-site replacements, and against ignoring release uncertainty. No classifier training or causal inference is involved.
+
+## Data and cases
+
+Use NCES IPEDS fall 2022 and 2023 admissions files. Prefer revised CSV within the official ZIP. Retain reported (R) applications and admissions for both women and men, strictly positive application denominators and valid integer admission counts. Denominators refer only to these two published categories. Sort eligible units into three bins by combined application volume: [100,1000), [1000,10000), [10000,infinity). Within each bin sort by SHA-256 of the ASCII string 'P7:' followed by UNITID. Take the first 80 institutions or all if fewer; partition sequentially into panels of eight, omit incomplete panels. These synthetic portfolios test a finite-table diagnostic. Neither institutions nor panels are sampled for population inference. Repeat the same procedure in each year; cross-year overlap is expected.
+
+## Design
+
+Use observed application shares for the anchor. Primary profile rho = 0.10, with 0, 0.01, 0.25 and 1 as boundary/sensitivity checks. Use an exact-count control and a hypothetical release rounding admitted counts to the nearest multiple of 10 or 100 (half ties upward, intersect with feasible integers). Applications stay public. Interval endpoints quantify ambiguity conditional on the release. Rounding has no differential privacy guarantee.
+
+Also emulate a public-denominator outcome-private Laplace release at epsilon 1 on the first panel in each size bin and year. Use 100 independent seeded public-data simulations per panel at rho=0.10. Compare an honest simultaneous 95% noise-inversion box with clipped plug-in counts and independently ranged anchor/target. Report frequencies against exact-table extrema, uncertainty width and Monte Carlo precision. The seeded simulation is not a production privacy mechanism.
+
+Report panel medians, ranges or frequencies with explicit denominators. Include an independent exhaustive rate-corner and grid/analytic mixture oracle on small fixtures, interior and degenerate examples and attainability checks. Disclose failed comparisons, differences from this specification and selection limits.
