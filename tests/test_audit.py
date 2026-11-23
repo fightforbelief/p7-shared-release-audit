@@ -117,3 +117,17 @@ class TestAudit(unittest.TestCase):
             ids = [r[0] for _,_,rows in selected for r in rows]
             self.assertEqual(len(set(ids)),240)
             self.assertEqual(sum(v for k,v in flow.items() if k!="raw"),flow["raw"])
+
+class TestCurvature(unittest.TestCase):
+    def test_second_order_is_necessary(self):
+        from audit import linear_certificate
+        a = (0,0,1)
+        rates = (1,0,.5)
+        g = [Group(q,rates,rates) for q in ((.9,.1,.5),(.1,.9,.5))]
+        for rho in (1,.25,.1,.01,.001):
+            res = envelope(a,g,rho)
+            self.assertAlmostEqual(res.upper.value,.8*rho)
+            self.assertAlmostEqual(res.single_upper,.8*rho*(1-rho)/(1-.64*rho*rho))
+            lo,hi = linear_certificate(a,g,rho)
+            self.assertGreaterEqual(hi+1e-12,res.upper.value)
+            self.assertLessEqual(lo-1e-12,res.lower.value)

@@ -6,12 +6,13 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+import curvature
 import replay
 import study
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT/"results"
-NAMES = ("institutions.csv","profiles.csv","private_releases.csv","summary.json","next_year.csv","replay.json")
+NAMES = ("institutions.csv","profiles.csv","private_releases.csv","summary.json","next_year.csv","replay.json","curvature.csv")
 
 
 def read(name):
@@ -68,10 +69,11 @@ def main():
     from contextlib import redirect_stdout
     import io
     with tempfile.TemporaryDirectory() as temp:
-        study.OUT = replay.OUT = Path(temp)
+        study.OUT = replay.OUT = curvature.OUT = Path(temp)
         with redirect_stdout(io.StringIO()):
             study.run()
             replay.run()
+            curvature.run()
         for name in NAMES:
             if name.endswith(".json"):
                 expected,actual = [json.loads((p/name).read_text()) for p in (OUT,Path(temp))]
@@ -83,7 +85,7 @@ def main():
             else:
                 assert (OUT/name).read_bytes()==(Path(temp)/name).read_bytes(),name
     print(f"Verified {len(profiles)*2} witnesses; max absolute error {worst_error:.3g}.")
-    print("All six result files reproduced.")
+    print("All seven result files reproduced.")
     for name in NAMES:
         print(hashlib.sha256((OUT/name).read_bytes()).hexdigest(),name)
 

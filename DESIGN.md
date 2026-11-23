@@ -21,3 +21,5 @@ Report panel medians, ranges or frequencies with explicit denominators. Include 
 ## Exploratory additions
 
 The centered total-variation upper bound was added before running the study as a comparator that accounts for cancellation. After the primary run, we added a next-year diagnostic. Fix the 2022 panels, retain complete panels with valid 2023 records for every member, and add the nine University of California undergraduate campuses as a named system. Compare the observed 2023 change with the 2022 frozen-site projection at the observed 2023 weights and with its envelope at the smallest admissible replacement fraction. Neither the temporal replay nor the named case is confirmatory. Cross-year results may reflect changes in group shares, outcomes or reporting. The UC case uses application counts per campus.
+
+The small primary-radius error of single-site replacement suggested a second exploratory analysis. We derived a uniform curvature allowance for the single-site audit and evaluated its enclosure and excess width on all existing profiles. This analysis used the existing data without redefining the primary comparisons.

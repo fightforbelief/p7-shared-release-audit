@@ -153,3 +153,31 @@ def independent(anchor, groups, rho):
         change, _ = maximize(anchor, fixed, rho, direction)
         bounds.append(change.value + direction*width)
     return tuple(bounds)
+
+
+def linear_certificate(anchor, groups, rho):
+    """Linear-time outer endpoints from single-recipient corners plus curvature."""
+    check(anchor, groups, rho)
+    correction = 0
+    for g in groups:
+        base = dot(anchor,g.share)
+        d_lo = (1-rho)*base + rho*min(g.share)
+        d_hi = (1-rho)*base + rho*max(g.share)
+        # Stable form of (sqrt(d_hi)-sqrt(d_lo))/(sqrt(d_hi)+sqrt(d_lo)).
+        curvature = rho*(max(g.share)-min(g.share))/(sqrt(d_hi)+sqrt(d_lo))**2
+        correction += curvature*(rho*max(g.share)/d_hi)*(max(g.high)-min(g.low))
+    endpoints = []
+    for direction in (-1,1):
+        terms = [OrientedGroup(anchor,g,s,rho) for g,s in zip(groups,(direction,-direction))]
+        best = 0.0  # the anchor is attainable at every radius
+        for i in range(len(anchor)):
+            value = 0
+            for term in terms:
+                # Under replacement by site i its own conditional weight increases.
+                upper = term.high[i]
+                base = (term.base_num+anchor[i]*term.q[i]*(upper-term.low[i]))/term.base_mass
+                mass = rho*term.q[i]
+                value += mass*(upper-base)/((1-rho)*term.base_mass+mass)
+            best = max(best,value)
+        endpoints.append(direction*(best+correction))
+    return tuple(endpoints)
