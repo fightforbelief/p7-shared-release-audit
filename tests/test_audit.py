@@ -128,6 +128,8 @@ class TestCurvature(unittest.TestCase):
             res = envelope(a,g,rho)
             self.assertAlmostEqual(res.upper.value,.8*rho)
             self.assertAlmostEqual(res.single_upper,.8*rho*(1-rho)/(1-.64*rho*rho))
-            lo,hi = linear_certificate(a,g,rho)
+            bracket = linear_certificate(a,g,rho)
+            lo,hi = bracket.lower,bracket.upper
+            self.assertAlmostEqual(bracket.inner_upper,res.single_upper)
             self.assertGreaterEqual(hi+1e-12,res.upper.value)
             self.assertLessEqual(lo-1e-12,res.lower.value)

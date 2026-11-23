@@ -155,6 +155,21 @@ def independent(anchor, groups, rho):
     return tuple(bounds)
 
 
+@dataclass(frozen=True)
+class Bracket:
+    inner_lower: float
+    inner_upper: float
+    allowance: float
+
+    @property
+    def lower(self):
+        return self.inner_lower-self.allowance
+
+    @property
+    def upper(self):
+        return self.inner_upper+self.allowance
+
+
 def linear_certificate(anchor, groups, rho):
     """Linear-time outer endpoints from single-recipient corners plus curvature."""
     check(anchor, groups, rho)
@@ -179,5 +194,5 @@ def linear_certificate(anchor, groups, rho):
                 mass = rho*term.q[i]
                 value += mass*(upper-base)/((1-rho)*term.base_mass+mass)
             best = max(best,value)
-        endpoints.append(direction*(best+correction))
-    return tuple(endpoints)
+        endpoints.append(direction*best)
+    return Bracket(*endpoints, correction)
