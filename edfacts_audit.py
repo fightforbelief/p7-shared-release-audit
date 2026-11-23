@@ -41,12 +41,12 @@ def count_band(n, label, conservative=False):
     return a,b
 
 
-def load(conservative):
-    if hashlib.sha256(EXTRACT.read_bytes()).hexdigest()!=SOURCE_PIN:
+def load(conservative, path=EXTRACT, source_pin=SOURCE_PIN):
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=source_pin:
         raise ValueError("public extract checksum mismatch")
     districts = defaultdict(lambda:defaultdict(dict))
     names = {}
-    with EXTRACT.open(encoding="utf-8",newline="") as f:
+    with path.open(encoding="utf-8",newline="") as f:
         for r in csv.DictReader(f):
             district = r["LEAID"]
             row = districts[district][r["NCESSCH"]]
