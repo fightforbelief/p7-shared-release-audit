@@ -1,0 +1,171 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.92in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,graphicx}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\dd}{\Delta}
+\title{How far can a group rate gap move?\\Sharp composition audits from a shared release}
+\author{Yunjie Guo \and Hanqing Yang\thanks{Corresponding author: \texttt{hanqing.yang189@gmail.com}. Both authors: Independent Researcher, Suzhou, China.}}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+A network can change its aggregate group rate gap by shifting volume between sites even if every site keeps its group composition and outcomes fixed. An auditor using rounded or privacy-perturbed outcome counts faces an additional constraint: the baseline and every alternative mix must use the same latent counts. We derive the sharp range of the signed gap change over all replacements of a specified share of the baseline and all site rates compatible with one rectangular release. An endpoint needs at most two recipient sites; for each pair, the maximizing rate corner changes on at most five intervals. This gives a quadratic-time exact algorithm and a linear-time enclosure for single-recipient checks, with a matching quadratic-order example at small replacement fractions. In 60 eight-institution panels from two years of US admissions data, at 10\% replacement and rounding admissions to tens, respecting the common table reduces the median range width for small institutions from 21.82 to 7.23 percentage points. A next-year replay puts 5 of 24 observed changes outside the exact-count composition envelope. The estimand measures sensitivity to composition under frozen site conditions.
+\end{abstract}
+
+\section{The audit question}
+Consider a consortium that publishes counts of applications and offers by campus and group. An analyst asks how far the overall difference in offer rates could move if one tenth of application volume were replaced by a different campus mix. Releasing the same counts twice with different feasible interpretations can yield a positive apparent change even when the mix stays fixed. A calculation for the change must keep each hidden cell value common to both evaluations.
+
+We assume that site-by-group application totals are known and that each admitted count lies in an interval. We pursue three quantities: the largest attainable increase, the largest attainable decrease, and the error incurred by checking just one recipient site at a time. They refer to the observed finite table with standardized weights. A small certified change can coexist with a large baseline gap.
+
+Rate decomposition has a long history. Kitagawa separates composition and rate effects for specified populations \cite{kitagawa}. Giguere et al.\ provide learning guarantees under demographic shift \cite{giguere}; Cherian and Cand\`es develop simultaneous statistical audits \cite{cherian}. These address generalization or sampling uncertainty. Our uncertainty set consists of the same unknown finite cells used under two weight vectors, one itself unknown. Kallus, Mao and Zhou bound disparities with missing protected class information \cite{kallus}; here group sizes are observed. Zaccour, Binns and Rocher study audit accuracy from privacy-perturbed aggregates \cite{zaccour}. We instead bound a change over all admissible recipient mixes from a single release. Repeated interval inputs can inflate ranges \cite{interval}. Classical fractional programming supplies the fixed-table edge property \cite{cambini}. Our contribution is the signed common-cell optimization along those edges and a certified linear-time approximation with a matching order example.
+
+\section{Finite-table estimand}
+Let $s=1,\dots,K$ index sites and $g=1,0$ two groups. Site proportions $q_{gs}>0$ are known, with $q_{1s}+q_{0s}=1$. Let $r_{gs}\in[l_{gs},h_{gs}]$ denote outcome rates. The release permits every combination of feasible cells; endpoints must be feasible. The results also apply to integer counts in these intervals divided by their known denominators. Write $b$ for the reference site weights on the simplex and define
+\[
+ B_g=\sum_s b_s q_{gs},\qquad
+ M_g(w;r)=\frac{\sum_s w_s q_{gs}r_{gs}}{\sum_s w_s q_{gs}},\qquad
+ G(w;r)=M_1(w;r)-M_0(w;r).
+\]
+A replacement fraction $\rho\in[0,1]$ gives $w=(1-\rho)b+\rho u$, where $u$ can be any distribution over the sites. All site laws remain fixed. This family is nested in $\rho$ and includes $b$ at every radius. It describes replacement proportional to the anchor on the removed side; arbitrary targeted removal would give a different uncertainty set. The quantity of interest is
+\[
+ \E_\rho=\{G((1-\rho)b+\rho u;r)-G(b;r): u\in\dd_{K-1},\ r\in\R\}.
+\]
+For each table, continuity in $u$ gives an interval containing zero. The union therefore fills the interval between the two attainable extrema even for discrete count sets.
+
+\section{Exact endpoints in quadratic time}
+\begin{lemma}
+For fixed rates, each extreme signed change admits a replacement distribution supported on at most two sites.
+\end{lemma}
+\begin{proof}
+Fix the target group-1 mass at its optimizing value. The other group mass is its complement. Both denominators are then constant, so maximizing the change is linear in $u$ over the simplex subject to at most one additional affine equality. An extreme solution has at most two nonzero entries. The same argument applies after negating the contrast. Compactness and positivity ensure existence.
+\end{proof}
+This is the two-ratio edge property specialized to complementary denominators. The remaining difficulty is the number of possible tables: an eight-site panel alone can have $2^{16}$ distinct rate corners.
+
+\begin{theorem}
+Over the common rectangular release, each endpoint of $\E_\rho$ can be found in $O(K^2)$ real arithmetic operations and $O(K)$ working memory. The algorithm returns the recipient pair and mixing fraction, from which an attaining table can be reconstructed.
+\end{theorem}
+\begin{proof}
+It suffices to maximize in each orientation. Absorb the sign of each group into its rates, reversing interval endpoints as necessary. Now both signed terms are added. Lemma 1 applies at an optimizing table, so examine $u_i=t,\ u_j=1-t$. For each group let $U_g(t)=tq_{gi}+(1-t)q_{gj}$ and $D_g=(1-\rho)B_g+\rho U_g$. The coefficient of a signed rate in the change is
+\[
+ c_{gs}=\frac{\rho q_{gs}}{B_g D_g}\{B_g u_s-b_s U_g(t)\}.
+\]
+Use the high endpoint when the coefficient is positive and the low endpoint otherwise. Every site outside the pair can use its low signed rate, including at ties. The four expressions in braces on the pair are affine in $t$. Their interior roots split the unit interval into at most five pieces. Corners on adjacent pieces give the same value at a switch.
+
+On each piece let $\beta_g$ be the anchor mean under its chosen signed rates. The objective is the sum over the groups of
+\[
+ F_g(t)=\frac{\rho\{t q_{gi}(r_{gi}-\beta_g)+(1-t)q_{gj}(r_{gj}-\beta_g)\}}{D_g(t)}.
+\]
+Precompute the all-low anchor totals and update just two sites to obtain $\beta_g$ in constant time. Each derivative is $C_g/D_g(t)^2$ for a constant $C_g$. When the constants have opposite signs, the derivative vanishes where
+$\sqrt{|C_1|}\,D_0(t)=\sqrt{|C_0|}\,D_1(t)$, a linear equation. An identically zero derivative or a constant piece requires only the endpoints. Otherwise evaluate the interior root if present and both boundaries. Compare all pairs in both orientations. A single site or zero replacement has zero change. All rate choices used by the calculation are attainable.
+\end{proof}
+
+\section{A linear-time enclosure and its accuracy}
+An analyst can screen a large network by testing each single recipient site plus the unchanged mix. Let $[L_v,H_v]$ be their joint inner range, including the full release uncertainty. With $q_{g-}=\min_s q_{gs}$, $q_{g+}=\max_s q_{gs}$, and $D_{g\pm}=(1-\rho)B_g+\rho q_{g\pm}$, set
+\[
+ A=\sum_g
+ \frac{\sqrt{D_{g+}}-\sqrt{D_{g-}}}{\sqrt{D_{g+}}+\sqrt{D_{g-}}}
+ \frac{\rho q_{g+}}{D_{g+}}\,
+ \big(\max_s h_{gs}-\min_s l_{gs}\big).
+\]
+\begin{theorem}
+$[L_v,H_v]\subseteq\E_\rho\subseteq[L_v-A,H_v+A]$. Both intervals cost $O(K)$ to compute. For fixed positive anchor group masses $A=O(\rho^2)$ as $\rho\downarrow0$. The worst-case order of the single-recipient error cannot be improved.
+\end{theorem}
+\begin{proof}
+Fix a rate table and any pair. Along the edge, the target mean in group $g$ is a mixture of the endpoint means $m_i,m_j$ with weight $\alpha=tD_i/(tD_i+(1-t)D_j)$ on $m_i$. Its deviation from the linear chord is $(\alpha-t)(m_i-m_j)$. Maximizing $|\alpha-t|$ by differentiation gives $|\sqrt{D_i}-\sqrt{D_j}|/(\sqrt{D_i}+\sqrt{D_j})$, bounded by the first factor in $A$. The single-recipient mean $m_i$ moves from the fixed baseline toward $r_{gi}$ by fraction $\lambda_i=\rho q_{gi}/D_i\le\rho q_{g+}/D_{g+}$. All such means lie between the baseline moved by the maximum fraction toward the smallest and the largest feasible rates. Their span is at most the product of the last two factors. Summing bounds the chord error for either signed contrast. Baseline subtraction leaves the error unchanged. Apply Theorem 1 to the optimizing table and pair. Single-site extrema use a common default corner and at most one correction per group. The square-root factor equals $\rho(q_{g+}-q_{g-})/(\sqrt{D_{g+}}+\sqrt{D_{g-}})^2$, yielding the asserted order.
+
+For necessity, anchor on site 3, take $q_1=(.9,.1,.5)$ and let both groups have rates $(1,0,.5)$. The best single-site increase is $.8\rho(1-\rho)/(1-.64\rho^2)$. Equal replacement from sites 1 and 2 attains $.8\rho$, exceeding the single-site value by $.8\rho^2+O(\rho^3)$. All group shares are positive.
+\end{proof}
+
+\paragraph{Other comparators.}
+Separate-table subtraction takes the maximum target gap minus the minimum baseline gap for the upper endpoint, and reverses the choices for the lower endpoint. It is an honest outer bound under rectangular releases. At zero shift its width equals twice the baseline gap range. A second bound evaluates both sharp endpoints for midpoint rates and pads each by $\sum_g\lambda_{g+}\max_s(h_{gs}-l_{gs})$. Indeed the total variation between baseline and target \emph{conditional} site weights is at most $\lambda_{g+}$, and the midpoint errors have range at most the maximum cell width. This comparator already cancels at zero replacement. Theorem 2 instead controls the curvature of the objective even when the rates are known exactly.
+
+\section{Design and numerical verification}
+We use two official US National Center for Education Statistics IPEDS admissions files \cite{ipeds}. We retained institution-years with reported (flag R) applications and admissions for both women and men, positive group denominators, feasible counts, and at least 100 applications in these two categories combined. Other published categories are outside this estimand. The raw files contained 1,991 and 1,972 institutions in 2022 and 2023. The four reported-field rule removed 189 and 176 records. The size threshold removed 219 and 218 more.
+
+Within each year and combined application bin (100--999, 1,000--9,999, and 10,000 or more) we sorted UNITIDs by a fixed hash and partitioned the first 80 into ten panels of eight. The resulting 60 panels include 269 distinct institutions across years. These constructed portfolios vary denominator size without selecting on the gap. A separate case uses the nine University of California undergraduate campuses. Applications at different campuses can belong to the same person \cite{uc}. All rates concern applications. The primary analysis uses application-volume weights, $\rho=.10$, and exact counts or admissions rounded to the nearest 10 or 100 with half ties upward. We invert the rounding rule on feasible integers. Rounding here emulates disclosure coarsening and has no differential privacy guarantee. Radius checks use $0,.01,.25,1$.
+
+For the first panel in each of the six year-by-size strata, we also add independent Laplace noise of scale one to admitted counts and clip to $[0,n]$. With fixed public denominators, a change in one application outcome moves one count by one. The ideal unseeded mechanism thus satisfies outcome-only $\epsilon=1$ differential privacy for that adjacency \cite{dwork}. Site membership, group membership, participation, and a person's decisions at several campuses fall outside this guarantee. We simulate public inputs with reproducible seeds. Invert a simultaneous box using radius $\log(2K/.05)$ around each clipped count, intersect with the integer domain, and propagate it. Clipping cannot increase error; the Laplace tail and a union bound give at least 95\% coverage of the full table, hence of its entire true envelope at all radii. The reported 600 simulations address release noise only.
+
+For an independent global check, we enumerate all 64 endpoint tables in each of 20 three-site fixtures. For each table and candidate bound, multiplying by both positive denominators makes its violation a quadratic on a triangle. We check its vertices, edge stationary points and interior stationary point, including zero baseline site weights and multiple radii. Direct evaluation also checks both returned witnesses on every empirical profile. Runs use only the Python standard library; rounding boundaries and an example requiring two sites have separate tests.
+
+\section{Empirical results}
+Table~\ref{tab:main} reports panel medians. For small institutions at rounding to tens, separate subtraction has three times the sharp width. For large institutions its excess is 0.25 percentage points (pp). Coarse rounding can leave an audit weak even after coupling: the median sharp width for small institutions at step 100 is 22.13 pp. At exact counts, both table-based approaches necessarily agree. For an illustrative tolerance of 5 pp in either direction, under rounding to tens the shared-table analysis certifies 13 of 20 small panels; separate subtraction certifies none. Both certify all 40 medium and large panels. Treating clipped rounded counts as exact encloses both true endpoints in only 13 of 60 panels at step 10 and 27 of 60 at step 100. These counts describe this sample and have no nominal coverage level.
+
+\begin{table}[ht]
+\centering
+\caption{Median width of the attainable change or an enclosing range, in pp, at 10\% replacement. Each row covers 20 panels, ten per year. Exact counts provide the reference.}
+\label{tab:main}
+\begin{tabular}{llrrrr}
+\toprule
+Size & Release step & Exact-count width & Shared & Separate & Centered\\
+\midrule
+Small & 10 & 5.30 & 7.23 & 21.82 & 22.37\\
+Medium & 10 & 1.82 & 2.16 & 4.42 & 2.84\\
+Large & 10 & 2.05 & 2.07 & 2.32 & 2.12\\
+Small & 100 & 5.30 & 22.13 & 130.86 & 57.24\\
+Medium & 100 & 1.82 & 5.15 & 24.15 & 10.62\\
+Large & 100 & 2.05 & 2.40 & 5.43 & 3.01\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For example, the first small 2022 panel at rounding to tens permits a change from $-2.55$ to $+6.87$ pp. The maximizing replacement puts the incoming volume at UNITID 480781. Separate subtraction gives $[-13.51,+17.75]$ pp. This is a bound on how the original gap could move under the scenario. Figure~\ref{fig:rho} shows how its width depends on the replacement fraction.
+
+\begin{figure}[ht]
+\centering\includegraphics[width=.98\linewidth]{profiles.pdf}
+\caption{Median widths with admissions rounded to tens. Each panel has its own vertical scale. Markers are evaluated radii; lines connect them for readability.}\label{fig:rho}
+\end{figure}
+
+\paragraph{When two recipients matter.}
+At rounding to tens and $\rho=.10$, a single-site check misses an endpoint by more than 0.1 pp in only 1 of 60 portfolios (maximum 0.176 pp). At $\rho=.25$ the count rises to 20 of 60 (maximum 1.229 pp); at full replacement it is 50 of 60 (maximum 30.646 pp). Thus single-site checks can be numerically close at modest drift, yet they cannot certify their own accuracy. The median excess width of the certified linear-time enclosure over the exact range was 0.006, 0.546, 3.096 and 35.723 pp at replacement shares of 1, 10, 25 and 100\%, respectively. Its small-radius guarantee loses practical force at full replacement. In a single-process synthetic timing study on the same Windows host, the median of five warm runs at 256 sites was 0.34 ms for the scan and 777 ms for the pair solver. Both methods used the same interval table and radius of 0.10.
+
+\paragraph{Noisy releases.}
+The inverted count box covered all true cells in 579 of 600 runs. Both the sharp shared-table and separate-table envelopes covered both true extrema in all 600. Clipped noisy counts treated as exact enclosed the full truth in 163 of 600 (27.2\%). The 100 replicates per fixed panel have worst-case Monte Carlo standard error 5 percentage points for a coverage fraction. These are conditional simulation frequencies across six fixed panels; the formal 95\% lower guarantee follows from noise inversion. A plug-in range is a point estimate of two endpoints and has no nominal simultaneous coverage.
+\begin{table}[ht]
+\centering
+\caption{Laplace simulation at $\rho=.10$. Coverage requires enclosing both true extrema. Widths are medians in percentage points. Each row pools two fixed panels.}
+\begin{tabular}{lrrrrr}
+\toprule
+Size & Runs & Box covers table & Plug-in covers & Shared width & Separate width\\
+\midrule
+Small & 200 & 192 & 65 & 7.74 & 30.49\\
+Medium & 200 & 192 & 39 & 1.61 & 3.04\\
+Large & 200 & 195 & 59 & 4.06 & 4.25\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{A next-year diagnostic and a named system}
+This exploratory replay fixes the 2022 sites and obtains the observed 2023 application shares $w'$. Their smallest compatible replacement radius is
+$\rho_*=\max_{s:b_s>0}(1-w'_s/b_s)_+$, since $w'_s\ge(1-\rho)b_s$ for every $s$. At that radius we compute both the entire 2022 composition envelope and the particular prediction $G(w';r_{22})-G(b;r_{22})$ with 2022 group shares. The observed change uses the actual 2023 rates and group shares.
+
+Of 30 baseline portfolios, 24 had valid follow-up records at every site. The median required replacement fraction was 25.5\%. Five of the 24 realized changes fell outside the exact-count envelope; four fell outside even after rounding the original admissions to tens. Median absolute deviation between the realized change and the frozen-site prediction at the actual weights was 0.83 pp. An exceedance rules out the stipulated composition-only explanation for these recorded tables. Membership within the envelope cannot establish that explanation, because a different site mix may attain the same gap.
+
+At the nine UC campuses $\rho_*=7.22\%$. The observed pooled gap changed by $-0.121$ pp. Transporting the unchanged 2022 site laws to the actual 2023 shares gives $-0.232$ pp, while the sharp exact-count interval at that radius is $[-0.497,+0.329]$ pp. Rounding to tens produces $[-0.503,+0.331]$ pp. Coarsening makes little practical difference in this large-volume system. Neither this exercise nor the panel construction adjusts for applicant qualifications or attributes a change to campus policy.
+
+\section{Scope and implications}
+The common-cell constraint matters most when the change in weights is modest relative to uncertainty in the site rates. The linear-time enclosure gives an auditable stopping rule: if the inner and outer endpoints already agree within the user's tolerance, no pair search is needed. If they disagree materially, the quadratic calculation returns a specific mix and compatible rate table that attain each extreme.
+
+The sharpness result is relative to the feasible box. Publishing exact cross-site outcome totals, suppressing the group denominators, or fitting all counts to shared noisy margins changes that feasible set. Additional constraints may tighten the bounds or require another algorithm. The two-group formulation covers a prespecified pair after conditioning on its combined population; a multi-group audit needs a clear definition of the deployment weights. The finite-table analysis assigns no sampling confidence to future rates. Future use needs a defensible replacement radius, a justified fixed-site model and clarity about repeated persons across sites.
+
+\paragraph{Availability and declarations.}
+The repository contains the frozen design, pinned public inputs, code, witnesses, result tables and verification output. The temporal replay and linear-time comparison were added after the primary run. \href{https://github.com/fightforbelief/p7-shared-release-audit}{Replication repository}. The authors received no specific funding and declare no competing interests.
+
+\begin{thebibliography}{10}
+\raggedright
+\bibitem{kitagawa} E. M. Kitagawa. Components of a difference between two rates. \emph{Journal of the American Statistical Association}, 50:1168--1194, 1955. \href{https://doi.org/10.1080/01621459.1955.10501299}{doi:10.1080/01621459.1955.10501299}.
+\bibitem{giguere} S. Giguere, B. Metevier, Y. Brun, B. C. da Silva, P. S. Thomas, and S. Niekum. Fairness guarantees under demographic shift. \emph{ICLR}, 2022. \href{https://people.cs.umass.edu/~brun/pubs/Giguere22iclr.pdf}{Author manuscript}.
+\bibitem{cherian} J. J. Cherian and E. J. Cand\`es. Statistical inference for fairness auditing. \emph{JMLR}, 25(149):1--49, 2024. \href{https://www.jmlr.org/papers/v25/23-0739.html}{Journal article}.
+\bibitem{kallus} N. Kallus, X. Mao, and A. Zhou. Assessing algorithmic fairness with unobserved protected class using data combination. \emph{Management Science}, 68(3):1959--1981, 2022. \href{https://doi.org/10.1287/mnsc.2020.3850}{doi:10.1287/mnsc.2020.3850}.
+\bibitem{zaccour} J. Zaccour, R. Binns, and L. Rocher. Access denied: Meaningful data access for quantitative algorithm audits. \emph{CHI}, 2025. \href{https://doi.org/10.1145/3706598.3713963}{Publisher record}.
+\bibitem{interval} A. Gray, M. de Angelis, E. Patelli, and S. Ferson. Bivariate dependency tracking in interval arithmetic. \emph{Mechanical Systems and Signal Processing}, 186:109771, 2023. \href{https://doi.org/10.1016/j.ymssp.2022.109771}{Publisher record}.
+\bibitem{cambini} A. Cambini, L. Martein, and S. Schaible. On maximizing a sum of ratios. \emph{Journal of Information and Optimization Sciences}, 10(1):65--79, 1989. \href{https://arpi.unipi.it/handle/11568/14015}{Author record}.
+\bibitem{ipeds} National Center for Education Statistics. IPEDS Admissions, fall 2022 and fall 2023. \href{https://nces.ed.gov/ipeds/datacenter/data/ADM2022.zip}{2022 archive}; \href{https://nces.ed.gov/ipeds/datacenter/data/ADM2023.zip}{2023 archive}. Members and checksums are in the replication code.
+\bibitem{uc} University of California. \emph{Quick Reference Guide to UC Admissions}, 2025. \href{https://admission.universityofcalifornia.edu/counselors/_files/documents/quick-reference-guide-to-uc-admissions.pdf}{Admissions guide}.
+\bibitem{dwork} C. Dwork, F. McSherry, K. Nissim, and A. Smith. Calibrating noise to sensitivity in private data analysis. \emph{TCC}, 2006. \href{https://doi.org/10.1007/11681878_14}{doi:10.1007/11681878\_14}.
+\end{thebibliography}
+\end{document}

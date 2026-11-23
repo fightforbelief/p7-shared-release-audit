@@ -1,0 +1,64 @@
+{
+  "skipped": [
+    {
+      "size": "medium",
+      "panel": 6,
+      "unavailable": [
+        "237118"
+      ]
+    },
+    {
+      "size": "medium",
+      "panel": 9,
+      "unavailable": [
+        "199607"
+      ]
+    },
+    {
+      "size": "small",
+      "panel": 0,
+      "unavailable": [
+        "486965"
+      ]
+    },
+    {
+      "size": "small",
+      "panel": 5,
+      "unavailable": [
+        "460376"
+      ]
+    },
+    {
+      "size": "small",
+      "panel": 6,
+      "unavailable": [
+        "368443"
+      ]
+    },
+    {
+      "size": "small",
+      "panel": 7,
+      "unavailable": [
+        "238430"
+      ]
+    }
+  ],
+  "n": 24,
+  "outside": 5,
+  "outside_round10": 4,
+  "median_abs_residual_pp": 0.8263823535145959,
+  "median_rho": 0.25465910625182525,
+  "uc": {
+    "size": "UC",
+    "panel": 0,
+    "n": 9,
+    "rho": 0.07224956733351728,
+    "observed": -0.0012059560214160159,
+    "frozen": -0.0023202191449900045,
+    "residual": 0.0011142631235739886,
+    "lo": -0.004966963054553596,
+    "hi": 0.0032937090508300152,
+    "round10_lo": -0.005033221544755488,
+    "round10_hi": 0.0033114431145500256
+  }
+}

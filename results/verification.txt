@@ -1,0 +1,21 @@
+test_global_oracle_and_witness (test_audit.TestAudit.test_global_oracle_and_witness) ... ok
+test_interior_required (test_audit.TestAudit.test_interior_required) ... ok
+test_known_equal_composition_and_invalid (test_audit.TestAudit.test_known_equal_composition_and_invalid) ... ok
+test_rounding_preimage (test_audit.TestAudit.test_rounding_preimage) ... ok
+test_source_selection (test_audit.TestAudit.test_source_selection) ... ok
+test_zero_and_one_site (test_audit.TestAudit.test_zero_and_one_site) ... ok
+test_second_order_is_necessary (test_audit.TestCurvature.test_second_order_is_necessary) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.194s
+
+OK
+Verified 1800 witnesses; max absolute error 5.9e-16.
+All seven result files reproduced.
+40cda61a54458d1576cc858b9d9bcf82ed9ccf038ff9afda6d5abe6cf69c67b4 institutions.csv
+b212b7a3d14fe67d7ca9f528e441fe08cee9bb5cc08d240b5f45a35d5b8fa0f7 profiles.csv
+ed8cfbd5a1afb55c847bae3a2182db652aeea60c952c5dbfade62f95c898d83f private_releases.csv
+9b7a2bb11f54a822e144914006f27a31ec1d51f09703926a21be50d301c63389 summary.json
+dff31ee3e6a7ee4b8a1d4e5676090c9070a496f64e14081327f29e61b906cfb2 next_year.csv
+abc394e629571f7b0e42b861a5a0586b20e162d7f48f789f6db703000b7de526 replay.json
+c63a650c359180fa565109c072ab7d086038e63251f54faa022d3fd0e3503d0d curvature.csv

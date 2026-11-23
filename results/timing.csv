@@ -1,0 +1,13 @@
+sites,method,median_seconds,repetitions,python,processor
+8,linear_certificate,2.7000001864507794e-05,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+8,envelope,0.0006853000013506971,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+16,linear_certificate,3.0399998649954796e-05,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+16,envelope,0.0028674999994109385,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+32,linear_certificate,5.0900001951958984e-05,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+32,envelope,0.011830700001155492,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+64,linear_certificate,9.470000077271834e-05,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+64,envelope,0.04855490000045393,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+128,linear_certificate,0.00017769999976735562,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+128,envelope,0.19060730000637705,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+256,linear_certificate,0.00033999999868683517,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"
+256,envelope,0.7767910999973537,5,3.12.10,"AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD"

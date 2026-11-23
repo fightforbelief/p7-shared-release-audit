@@ -1,0 +1,8 @@
+*.py text eol=lf
+*.md text eol=lf
+*.tex text eol=lf
+*.pdf binary
+*.zip binary
+results/*.csv -text
+results/*.json -text
+results/verification.txt -text
