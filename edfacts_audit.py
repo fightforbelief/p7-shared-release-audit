@@ -133,7 +133,8 @@ def mixture(b,rho,witness):
 
 
 def audit(sites,setting):
-    b = [s.total/sum(t.total for t in sites) for s in sites]
+    tested = sum(s.total for s in sites)
+    b = [s.total/tested for s in sites]
     if setting=="equal_school":
         return fixed_bounds(sites,b,[1/len(sites)]*len(sites))
     rho = float(setting)

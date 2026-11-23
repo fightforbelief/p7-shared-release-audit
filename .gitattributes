@@ -6,3 +6,4 @@
 results/*.csv -text
 results/*.json -text
 results/verification.txt -text
+data/edfacts_ca_math_1819.csv text eol=lf
