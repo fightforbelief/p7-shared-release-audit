@@ -7,24 +7,24 @@
 \newcommand{\E}{\mathcal{E}}
 \newcommand{\R}{\mathcal{R}}
 \newcommand{\dd}{\Delta}
-\title{How far can a group rate gap move?\\Sharp composition audits from a shared release}
+\title{Certifying changes in group rate gaps\\from a shared statistical release}
 \author{Yunjie Guo \and Hanqing Yang\thanks{Corresponding author: \texttt{hanqing.yang189@gmail.com}. Both authors: Independent Researcher, Suzhou, China.}}
 \date{}
 \begin{document}
 \maketitle
 \begin{abstract}
-A network can change its aggregate group rate gap by shifting volume between sites even if every site keeps its group composition and outcomes fixed. An auditor using rounded or privacy-perturbed outcome counts faces an additional constraint: the baseline and every alternative mix must use the same latent counts. We derive the sharp range of the signed gap change over replacements of a specified share of the baseline and rates compatible with one release, including exact site totals and rounded group counts. An endpoint needs at most two recipient sites; for each pair, the rectangular case has at most five intervals and the public-total case has at most 36 pairs of feasible vertices. This gives a quadratic-time exact algorithm and a linear-time enclosure for single-recipient checks, with a matching quadratic-order example at small replacement fractions. In 60 eight-institution panels from two years of US admissions data, at 10\% replacement and rounding admissions to tens, respecting the common table reduces the median range width for small institutions from 21.82 to 7.23 percentage points. Publishing exact site totals retains all 13 previously certified small panels at a five-point tolerance and adds one. The exact audit certifies 14 of 20 and the conservative linear scan certifies 12. The estimand measures sensitivity to composition under frozen site conditions.
+Two standardized group rate gaps computed from one disclosure-protected table share the same hidden cell counts. We give sharp bounds on their change under site reweighting, a linear-time certificate that can resolve a decision before exact search, and a test for when public totals require joint optimization. In the US Department of Education's published mathematics proficiency bands for 417 California school districts, we ask whether replacing 10\% of the school mix can move the English-learner proficiency gap by more than five percentage points. Treating the baseline and target tables separately certifies no district. Reusing the table certifies 192. The linear scan settles 387 decisions, and exact search on tightened marginal intervals settles the other 30. Full joint optimization changes none of these decisions. For a fixed equal-school comparison it identifies the direction of change in one additional district, by a margin sensitive to the encoding of published percentages. An admissions study supplies complementary checks against known counts. The results support shared-table screening and selective exact search for finite-table composition audits.
 \end{abstract}
 
 \section{The audit question}
-Consider a consortium that publishes counts of applications and offers by campus and group. An analyst asks how far the overall difference in offer rates could move if one tenth of application volume were replaced by a different campus mix. Releasing the same counts twice with different feasible interpretations can yield a positive apparent change even when the mix stays fixed. A calculation for the change must keep each hidden cell value common to both evaluations.
+A school district knows how many English learners and other students took a mathematics assessment at each school. The public release gives bands for proficiency. Could a shift of one tenth of tested volume among schools move the district proficiency gap by more than five percentage points, with school conditions fixed? The same unobserved proficient counts enter the baseline and the alternative. Allowing different counts in those two calculations gives an apparent range of changes even when the school mix stays fixed.
 
-We assume that site-by-group application totals are known and that each admitted count lies in an interval. We pursue three quantities: the largest attainable increase, the largest attainable decrease, and the error incurred by checking just one recipient site at a time. They refer to the observed finite table with standardized weights. A small certified change can coexist with a large baseline gap.
+We assume that the two group denominators at each site are known and its outcome counts are constrained by the release. We pursue three quantities: the largest attainable increase, the largest attainable decrease, and the error incurred by checking just one recipient site at a time. They refer to the observed finite table with standardized weights. A small certified change can coexist with a large baseline gap.
 
-Rate decomposition has a long history. Kitagawa separates composition and rate effects for specified populations \cite{kitagawa}. Giguere et al.\ provide learning guarantees under demographic shift \cite{giguere}; Cherian and Cand\`es develop simultaneous statistical audits \cite{cherian}. These address generalization or sampling uncertainty. Our uncertainty set consists of the same unknown finite cells used under two weight vectors, one itself unknown. Kallus, Mao and Zhou bound disparities with missing protected class information \cite{kallus}; here group sizes are observed. Zaccour, Binns and Rocher study audit accuracy from privacy-perturbed aggregates \cite{zaccour}. We instead bound a change over all admissible recipient mixes from a single release. Repeated interval inputs can inflate ranges \cite{interval}. Classical fractional programming supplies the fixed-table edge property \cite{cambini}. Our contribution is the signed common-cell optimization along those edges and a certified linear-time approximation with a matching order example.
+Rate decomposition has a long history. Kitagawa separates composition and rate effects for specified populations \cite{kitagawa}. Giguere et al.\ provide learning guarantees under demographic shift \cite{giguere}; Cherian and Cand\`es develop simultaneous statistical audits \cite{cherian}. These address generalization or sampling uncertainty. Our uncertainty set consists of the same unknown finite cells used under two weight vectors, one itself unknown. Kallus, Mao and Zhou bound disparities with missing protected class information \cite{kallus}; here group sizes are observed. Zaccour, Binns and Rocher study audit accuracy from privacy-perturbed aggregates \cite{zaccour}. We instead bound a change over all admissible recipient mixes from a single release. Dobra and Fienberg derive sharp feasible cell bounds from published margins \cite{dobra}. Given such bounds, our target is a change in an aggregate contrast over a common table and possibly unknown site weights. Repeated interval inputs can inflate ranges \cite{interval}. Classical fractional programming supplies the fixed-table edge property \cite{cambini}. We use the signed common-cell coefficients along those edges to compute attainable bounds. A linear scan supplies inner and outer certificates with a matching order example. An audit can then reserve exact search for decisions the scan leaves open. Our external comparison measures how often preserving within-site count dependence changes that decision after each cell range has already been tightened.
 
 \section{Finite-table estimand}
-Let $s=1,\dots,K$ index sites and $g=1,0$ two groups. Site proportions $q_{gs}>0$ are known, with $q_{1s}+q_{0s}=1$. Let $r_{gs}\in[l_{gs},h_{gs}]$ denote outcome rates. The release permits every combination of feasible cells; endpoints must be feasible. The results also apply to integer counts in these intervals divided by their known denominators. Write $b$ for the reference site weights on the simplex and define
+Let $s=1,\dots,K$ index sites and $g=1,0$ two groups. Site proportions $q_{gs}>0$ are known, with $q_{1s}+q_{0s}=1$. Let $r_{gs}\in[l_{gs},h_{gs}]$ denote outcome rates. We begin with a rectangular release permitting every combination of feasible cells, including their endpoints. Section~5 adds within-site sum constraints. The results also apply to integer counts in these intervals divided by their known denominators. Write $b$ for the reference site weights on the simplex and define
 \[
  B_g=\sum_s b_s q_{gs},\qquad
  M_g(w;r)=\frac{\sum_s w_s q_{gs}r_{gs}}{\sum_s w_s q_{gs}},\qquad
@@ -83,7 +83,83 @@ For necessity, anchor on site 3, take $q_1=(.9,.1,.5)$ and let both groups have 
 \paragraph{Other comparators.}
 Separate-table subtraction takes the maximum target gap minus the minimum baseline gap for the upper endpoint, and reverses the choices for the lower endpoint. It is an honest outer bound under rectangular releases. At zero shift its width equals twice the baseline gap range. A second bound evaluates both sharp endpoints for midpoint rates and pads each by $\sum_g\lambda_{g+}\max_s(h_{gs}-l_{gs})$. Indeed the total variation between baseline and target \emph{conditional} site weights is at most $\lambda_{g+}$, and the midpoint errors have range at most the maximum cell width. This comparator already cancels at zero replacement. Theorem 2 instead controls the curvature of the objective even when the rates are known exactly.
 
-\subsection{Exact public institution totals}
+
+\section{When do the marginal ranges suffice?}
+A public total can constrain two site counts $(x_s,y_s)$ to an integer rectangle intersected with a sum band. Projecting the polygon onto each axis keeps each count's feasible range but allows some impossible pairs. We distinguish the resulting shared-table rectangle audit from separate-table subtraction, which additionally permits the baseline and target counts to differ.
+
+For a fixed target mix $w$, let $D_g=\sum_s w_sq_{gs}$ and let $n_s$ be the combined site denominator. In the change of the group-1 minus group-0 gap the coefficients of $x_s$ and $y_s$ are, respectively,
+\[
+ c_s=(w_s/D_1-b_s/B_1)/n_s,\qquad
+ d_s=(b_s/B_0-w_s/D_0)/n_s .
+\]
+For the upper endpoint the marginal rectangle selects a corner according to the signs of $c_s,d_s$. The polygon gives the same endpoint precisely when, at every site, at least one maximizing rectangle point is feasible. To see necessity, each site loss is nonnegative and adds to the total. Sufficiency follows by assembling the maximizing points; the count vertices are integral. Negate both coefficients for the lower endpoint. Opposite-sign corners are always feasible for a projected sum-band polygon (Appendix~\ref{app:totals}). When both coefficients are nonzero with the same sign, clipping the selected high--high or low--low corner strictly changes the endpoint. For $b_s>0$ these equal signs require $w_s/b_s$ to lie strictly between $D_1/B_1$ and $D_0/B_0$. This ties the potential failure to differences in how the two groups reweight the same site.
+
+Over a family of mixes, equality at a projected extremum requires at least one optimizing mix with such a feasible maximizing table. A single incompatible witness cannot rule out another optimizer. A projected outer interval entirely inside the tolerance already certifies the decision. A feasible violating witness rules it out. For two-sided tolerance $\tau$, let $R_J,R_P$ be the larger endpoint magnitude under joint and projected constraints. The decisions differ exactly for $\tau\in[R_J,R_P)$ when $R_J<R_P$. A tighter one-sided endpoint can leave $R_J$ unchanged.
+
+\section{External validation on published proficiency bands}
+\paragraph{Release and population.}
+US EDFacts publishes school-level numbers of valid mathematics assessments and proficiency percentages in bands of varying precision, with suppression for very small cells \cite{edfacts}. We used California in 2018--19, the last pre-pandemic school year. At each school the ALL and LEP all-grade rows give the total and English-learner denominators and proficiency labels. The remaining tested students form the comparison group. The ALL band restricts $x+y$, the LEP band restricts $x$, and the remaining denominator bounds $y$. These are the publisher's labels. Sharpness is conditional on these two rows and the stated decoding; the audit does not link other grade, subgroup or district tables.
+
+We inverted a whole-percent label or range on the integer lattice, admitting both nearest-percent half ties. An explicit suppression with a known denominator admits every count. A sensitivity analysis also admits truncation before encoding. Of 1,956 reporting district identifiers, 280 lacked complete, usable two-group records at every school with an ALL row. Another 1,259 fell outside the prespecified range of 3--25 schools. The resulting 417 districts contain 3,571 schools. These are descriptive audits of released aggregates. The denominators count tests with valid scores and the contrasts freeze school-level rates. The choice of five points is illustrative.
+
+\paragraph{Unknown recipient schools.}
+We specified 10\% replacement and a five-point tolerance before inspecting district effects. Joint and projected exact search certified the same 192 districts; their primary radii agreed to numerical precision. They also agreed for all three specified tolerances at 25\% and full replacement (Table~\ref{tab:edfacts}). Full replacement could still move one endpoint inward by up to 0.156 pp without changing the maximum magnitude. Under the more permissive encoding, the two primary methods each certified 185 districts. The encoding of the public release changed more primary decisions than the choice of polygon or rectangle.
+
+\begin{table}[ht]
+\centering
+\caption{Districts certified out of 417 using the nearest-percent decoding. Each entry is the count shared by projected and joint exact search; district decisions coincide individually. The last column gives the number whose two-sided radius contracts by at least 0.1 pp under joint search.}
+\label{tab:edfacts}
+\begin{tabular}{lrrrr}
+\toprule
+Comparison & 2.5 pp & 5 pp & 7.5 pp & Contraction $\ge 0.1$ pp\\
+\midrule
+10\% replacement &65&192&283&0\\
+25\% replacement &0&38&98&0\\
+Full replacement &0&0&0&0\\
+Equal school weights &45&123&201&9\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Where the decision gain came from.}
+In a secondary comparison at the primary radius, separate-table subtraction certified 0 of 417, with median width 27.80 pp. With one shared table the linear scan certified 162 districts within tolerance and exhibited an attainable violation in 225. This settled 387 of 417 decisions (92.8\%). The other 30 were all certified by exact search on the marginal ranges. The median widths were 9.53 pp for the scan's outer interval and 8.36 pp for the exact interval. The reported median widths pool all 417 districts. The scan and exact procedures allowed the same public information. The separate-table comparison isolates the cost of discarding shared counts; it is a deliberately conservative baseline.
+
+\paragraph{A fixed standardization that exposes dependence.}
+We separately compared the original student-weighted mix to equal weights per school. This is a fixed standardization and need not be a ten-percent shift. The joint radius contracted by more than $10^{-8}$ pp in 138 districts and by at least 0.1 pp in nine. The largest contraction, in West Sonoma County Union High, was from 45.821 to 45.602 pp. Only tolerances in the narrow interval between the underlying values switch that district's two-sided decision; all three specified tolerances give the same verdict.
+
+An exploratory check asked whether the interval excludes zero. One district changed classification. In Old Adobe Union (five schools), projection gave $[-0.00775,\,2.07477]$ pp. Joint optimization gave $[0.00190,\,2.06513]$ pp, identifying a positive change. Direct rational arithmetic confirmed all four endpoints. Under the wider encoding its joint lower bound fell to $-0.05087$ pp, and no district gained a directional conclusion. This example establishes a dependence on the public count constraints with a sign margin of only 0.00190 pp.
+
+\paragraph{Independent checks and a known-count benchmark.}
+For each reported extremizing school mix, a separate calculation swept feasible integer learner counts and optimized the complementary count at its allowable endpoints. Both external result files reproduced byte-for-byte on Windows. In a separate, controlled IPEDS analysis with known source counts we tested 60 eight-institution panels. With admissions rounded to tens and institution totals published, the exact audit certified 14 of 20 small panels and the linear enclosure certified 12. Projection and joint search made all 60 decisions identically. Appendix~\ref{app:admissions} gives the rounding, release-noise and temporal checks. They use emulated disclosure rules; EDFacts supplies the native published bands.
+
+\section{Scope and implications}
+The common-cell constraint matters most when the change in weights is modest relative to uncertainty in the site rates. The linear-time enclosure gives an auditable stopping rule: if the inner and outer endpoints already agree within the user's tolerance, no pair search is needed. When the scan is inconclusive, the projected rectangle can settle additional decisions. Full joint search is justified when a projected extremum cannot be attained under the public constraints and resolving the remaining margin matters. The two external encodings and the isolated, fragile direction change put an empirical limit on the gain from that last step.
+
+Sharpness is relative to the stated disclosure rules. The polygon extension accommodates an exact within-site total. Cross-site outcome totals, unavailable focal group denominators, or common noisy margins change the feasible set further. Additional constraints may tighten the bounds or require another algorithm. The two-group formulation covers a prespecified pair after conditioning on its combined population; a multi-group audit needs a clear definition of the deployment weights. The finite-table analysis assigns no sampling confidence to future rates. Future use needs a defensible replacement radius, a justified fixed-site model and clarity about repeated persons across sites.
+
+\paragraph{Availability and declarations.}
+The repository contains the frozen design, pinned public inputs, code, witnesses, result tables and verification output. The admissions follow-ups and the external validation followed the original admissions study. We fixed the external population, two composition questions, tolerances, and size criterion before inspecting district effects. The direction check and the separate-table and scan comparisons are exploratory. \href{https://github.com/fightforbelief/p7-shared-release-audit}{Replication repository}. The authors received no specific funding and declare no competing interests.
+
+\begin{thebibliography}{10}
+\raggedright
+\bibitem{kitagawa} E. M. Kitagawa. Components of a difference between two rates. \emph{Journal of the American Statistical Association}, 50:1168--1194, 1955. \href{https://doi.org/10.1080/01621459.1955.10501299}{doi:10.1080/01621459.1955.10501299}.
+\bibitem{giguere} S. Giguere, B. Metevier, Y. Brun, B. C. da Silva, P. S. Thomas, and S. Niekum. Fairness guarantees under demographic shift. \emph{ICLR}, 2022. \href{https://people.cs.umass.edu/~brun/pubs/Giguere22iclr.pdf}{Author manuscript}.
+\bibitem{cherian} J. J. Cherian and E. J. Cand\`es. Statistical inference for fairness auditing. \emph{JMLR}, 25(149):1--49, 2024. \href{https://www.jmlr.org/papers/v25/23-0739.html}{Journal article}.
+\bibitem{kallus} N. Kallus, X. Mao, and A. Zhou. Assessing algorithmic fairness with unobserved protected class using data combination. \emph{Management Science}, 68(3):1959--1981, 2022. \href{https://doi.org/10.1287/mnsc.2020.3850}{doi:10.1287/mnsc.2020.3850}.
+\bibitem{zaccour} J. Zaccour, R. Binns, and L. Rocher. Access denied: Meaningful data access for quantitative algorithm audits. \emph{CHI}, 2025. \href{https://doi.org/10.1145/3706598.3713963}{Publisher record}.
+\bibitem{dobra} A. Dobra and S. E. Fienberg. Bounds for cell entries in contingency tables given marginal totals and decomposable graphs. \emph{PNAS}, 97(22):11885--11892, 2000. \href{https://doi.org/10.1073/pnas.97.22.11885}{Publisher record}.
+\bibitem{interval} A. Gray, M. de Angelis, E. Patelli, and S. Ferson. Bivariate dependency tracking in interval arithmetic. \emph{Mechanical Systems and Signal Processing}, 186:109771, 2023. \href{https://doi.org/10.1016/j.ymssp.2022.109771}{Publisher record}.
+\bibitem{cohen} S. N. Cohen and E. Fausti. Hyperbolic contractivity and the Hilbert metric on probability measures. \href{https://arxiv.org/abs/2309.02413}{arXiv:2309.02413}, 2023, revised 2024.
+\bibitem{cambini} A. Cambini, L. Martein, and S. Schaible. On maximizing a sum of ratios. \emph{Journal of Information and Optimization Sciences}, 10(1):65--79, 1989. \href{https://arpi.unipi.it/handle/11568/14015}{Author record}.
+\bibitem{edfacts} US Department of Education. EDFacts public-use achievement results for state assessments in mathematics, school year 2018--19, and public file documentation, version 1.0. School snapshot 13 August 2020. \href{https://www.eddatacenter.org/edfacts}{Archive and original documentation}.
+\bibitem{ipeds} National Center for Education Statistics. IPEDS Admissions, fall 2022 and fall 2023. \href{https://nces.ed.gov/ipeds/datacenter/data/ADM2022.zip}{2022 archive}; \href{https://nces.ed.gov/ipeds/datacenter/data/ADM2023.zip}{2023 archive}. Members and checksums are in the replication code.
+\bibitem{ipedsform} National Center for Education Statistics. IPEDS Admissions survey form and instructions, 2023--24. \href{https://nces.ed.gov/ipeds/use-the-data/download-survey-material/2023/admissions/package_14_102.pdf}{NCES questionnaire}.
+\bibitem{uc} University of California. \emph{Quick Reference Guide to UC Admissions}, 2025. \href{https://admission.universityofcalifornia.edu/counselors/_files/documents/quick-reference-guide-to-uc-admissions.pdf}{Admissions guide}.
+\bibitem{dwork} C. Dwork, F. McSherry, K. Nissim, and A. Smith. Calibrating noise to sensitivity in private data analysis. \emph{TCC}, 2006. \href{https://doi.org/10.1007/11681878_14}{doi:10.1007/11681878\_14}.
+\end{thebibliography}
+\clearpage
+\appendix
+\section{Computation for public totals}\label{app:totals}
 Suppose an institution publishes its exact admission count $T_s$ and rounds available group admission counts to tens. Retain the original two-group estimand. Let $x_s,y_s$ denote admitted women and men, and $[a_s,d_s]$ the feasible range of combined admissions in the remaining categories. The site constraints become
 \[
  (x_s,y_s)\in ([l_x,h_x]\times[l_y,h_y])\cap\mathbb Z^2,\qquad
@@ -96,7 +172,7 @@ Intersecting the count rectangle with the sum band gives a polygon with at most 
 
 At the recipient sites enumerate vertex pairs (at most 36 assignments). For each assignment optimize the two fractional terms on the full edge as in Theorem 1. Maximization over assignments and edge weights commutes, and a linear objective on each site attains its maximum at a vertex. Precomputed baseline totals again give constant work per assignment and $O(K^2)$ overall. For a single recipient its conditional weight increases weakly in both groups, so the reverse corner attains its signed extremum. Applying Theorem 2 to feasible marginal minima and maxima gives the exact single-recipient inner endpoints and a valid linear-time outer certificate for the same constrained release.
 
-\section{Design and numerical verification}
+\section{Admissions benchmark and verification}\label{app:admissions}
 We use two official US National Center for Education Statistics IPEDS admissions files \cite{ipeds}. We retained institution-years with reported (flag R) applications and admissions for both women and men, positive group denominators, feasible counts, and at least 100 applications in these two categories combined. Other published categories are outside this estimand. The raw files contained 1,991 and 1,972 institutions in 2022 and 2023. The four reported-field rule removed 189 and 176 records. The size threshold removed 219 and 218 more.
 
 Within each year and combined application bin (100--999, 1,000--9,999, and 10,000 or more) we sorted UNITIDs by a fixed hash and partitioned the first 80 into ten panels of eight. The resulting 60 panels include 269 distinct institutions across years. These constructed portfolios vary denominator size without selecting on the gap. A separate case uses the nine University of California undergraduate campuses. Applications at different campuses can belong to the same person \cite{uc}. All rates concern applications. The primary analysis uses application-volume weights, $\rho=.10$, and exact counts or admissions rounded to the nearest 10 or 100 with half ties upward. We invert the rounding rule on feasible integers. Rounding here emulates disclosure coarsening and has no differential privacy guarantee. Radius checks use $0,.01,.25,1$.
@@ -105,7 +181,7 @@ For the first panel in each of the six year-by-size strata, we also add independ
 
 For an independent global check, we enumerate all 64 endpoint tables in each of 20 three-site fixtures. For each table and candidate bound, multiplying by both positive denominators makes its violation a quadratic on a triangle. We check its vertices, edge stationary points and interior stationary point, including zero baseline site weights and multiple radii. Direct evaluation also checks both returned witnesses on every empirical profile. Runs use only the Python standard library; rounding boundaries and an example requiring two sites have separate tests.
 
-\section{Empirical results}
+\subsection{Admissions results}
 Table~\ref{tab:main} reports panel medians. For small institutions at rounding to tens, separate subtraction has three times the sharp width. For large institutions its excess is 0.25 percentage points (pp). Coarse rounding can leave an audit weak even after coupling: the median sharp width for small institutions at step 100 is 22.13 pp. At exact counts, both table-based approaches necessarily agree. For an illustrative tolerance of 5 pp in either direction, under rounding to tens the shared-table analysis certifies 13 of 20 small panels; separate subtraction certifies none. Both certify all 40 medium and large panels. Treating clipped rounded counts as exact encloses both true endpoints in only 13 of 60 panels at step 10 and 27 of 60 at step 100. These counts describe this sample and have no nominal coverage level.
 
 \begin{table}[ht]
@@ -176,7 +252,7 @@ Retention follows from nesting: a true public total can only remove feasible tab
 
 For small panels the median sharp width moves from 7.23 to 6.17 pp; the median \emph{paired} reduction is 0.67 pp. A simpler quadratic-time comparator projects each site polygon onto its two coordinates and applies the original rectangle algorithm. It makes the same 60 certification decisions at 5 pp. The largest endpoint difference from the polygon solution is 0.00064 pp or less. The observed decision gains primarily reflect tighter feasible cell ranges and the difference between an exact search and the conservative scan. Full polygon optimization supplies sharpness, with little additional numerical effect here. The study uses a simulated disclosure policy on public data and 60 constructed panels with 211 institutions shared between the two years.
 
-\section{A next-year diagnostic and a named system}
+\subsection{A next-year diagnostic and a named system}
 This exploratory replay fixes the 2022 sites and obtains the observed 2023 application shares $w'$. Their smallest compatible replacement radius is
 $\rho_*=\max_{s:b_s>0}(1-w'_s/b_s)_+$, since $w'_s\ge(1-\rho)b_s$ for every $s$. At that radius we compute both the entire 2022 composition envelope and the particular prediction $G(w';r_{22})-G(b;r_{22})$ with 2022 group shares. The observed change uses the actual 2023 rates and group shares.
 
@@ -184,27 +260,4 @@ Of 30 baseline portfolios, 24 had valid follow-up records at every site. The med
 
 At the nine UC campuses $\rho_*=7.22\%$. The observed pooled gap changed by $-0.121$ pp. Transporting the unchanged 2022 site laws to the actual 2023 shares gives $-0.232$ pp, while the sharp exact-count interval at that radius is $[-0.497,+0.329]$ pp. Rounding to tens produces $[-0.503,+0.331]$ pp. Coarsening makes little practical difference in this large-volume system. Neither this exercise nor the panel construction adjusts for applicant qualifications or attributes a change to campus policy.
 
-\section{Scope and implications}
-The common-cell constraint matters most when the change in weights is modest relative to uncertainty in the site rates. The linear-time enclosure gives an auditable stopping rule: if the inner and outer endpoints already agree within the user's tolerance, no pair search is needed. If they disagree materially, the quadratic calculation returns a specific mix and compatible rate table that attain each extreme.
-
-Sharpness is relative to the stated disclosure rules. The polygon extension accommodates an exact within-site total. Cross-site outcome totals, unavailable focal group denominators, or common noisy margins change the feasible set further. Additional constraints may tighten the bounds or require another algorithm. The two-group formulation covers a prespecified pair after conditioning on its combined population; a multi-group audit needs a clear definition of the deployment weights. The finite-table analysis assigns no sampling confidence to future rates. Future use needs a defensible replacement radius, a justified fixed-site model and clarity about repeated persons across sites.
-
-\paragraph{Availability and declarations.}
-The repository contains the frozen design, pinned public inputs, code, witnesses, result tables and verification output. The temporal replay, linear-time comparison and public-total follow-up were added after the primary run. \href{https://github.com/fightforbelief/p7-shared-release-audit}{Replication repository}. The authors received no specific funding and declare no competing interests.
-
-\begin{thebibliography}{10}
-\raggedright
-\bibitem{kitagawa} E. M. Kitagawa. Components of a difference between two rates. \emph{Journal of the American Statistical Association}, 50:1168--1194, 1955. \href{https://doi.org/10.1080/01621459.1955.10501299}{doi:10.1080/01621459.1955.10501299}.
-\bibitem{giguere} S. Giguere, B. Metevier, Y. Brun, B. C. da Silva, P. S. Thomas, and S. Niekum. Fairness guarantees under demographic shift. \emph{ICLR}, 2022. \href{https://people.cs.umass.edu/~brun/pubs/Giguere22iclr.pdf}{Author manuscript}.
-\bibitem{cherian} J. J. Cherian and E. J. Cand\`es. Statistical inference for fairness auditing. \emph{JMLR}, 25(149):1--49, 2024. \href{https://www.jmlr.org/papers/v25/23-0739.html}{Journal article}.
-\bibitem{kallus} N. Kallus, X. Mao, and A. Zhou. Assessing algorithmic fairness with unobserved protected class using data combination. \emph{Management Science}, 68(3):1959--1981, 2022. \href{https://doi.org/10.1287/mnsc.2020.3850}{doi:10.1287/mnsc.2020.3850}.
-\bibitem{zaccour} J. Zaccour, R. Binns, and L. Rocher. Access denied: Meaningful data access for quantitative algorithm audits. \emph{CHI}, 2025. \href{https://doi.org/10.1145/3706598.3713963}{Publisher record}.
-\bibitem{interval} A. Gray, M. de Angelis, E. Patelli, and S. Ferson. Bivariate dependency tracking in interval arithmetic. \emph{Mechanical Systems and Signal Processing}, 186:109771, 2023. \href{https://doi.org/10.1016/j.ymssp.2022.109771}{Publisher record}.
-\bibitem{cohen} S. N. Cohen and E. Fausti. Hyperbolic contractivity and the Hilbert metric on probability measures. \href{https://arxiv.org/abs/2309.02413}{arXiv:2309.02413}, 2023, revised 2024.
-\bibitem{cambini} A. Cambini, L. Martein, and S. Schaible. On maximizing a sum of ratios. \emph{Journal of Information and Optimization Sciences}, 10(1):65--79, 1989. \href{https://arpi.unipi.it/handle/11568/14015}{Author record}.
-\bibitem{ipeds} National Center for Education Statistics. IPEDS Admissions, fall 2022 and fall 2023. \href{https://nces.ed.gov/ipeds/datacenter/data/ADM2022.zip}{2022 archive}; \href{https://nces.ed.gov/ipeds/datacenter/data/ADM2023.zip}{2023 archive}. Members and checksums are in the replication code.
-\bibitem{ipedsform} National Center for Education Statistics. IPEDS Admissions survey form and instructions, 2023--24. \href{https://nces.ed.gov/ipeds/use-the-data/download-survey-material/2023/admissions/package_14_102.pdf}{NCES questionnaire}.
-\bibitem{uc} University of California. \emph{Quick Reference Guide to UC Admissions}, 2025. \href{https://admission.universityofcalifornia.edu/counselors/_files/documents/quick-reference-guide-to-uc-admissions.pdf}{Admissions guide}.
-\bibitem{dwork} C. Dwork, F. McSherry, K. Nissim, and A. Smith. Calibrating noise to sensitivity in private data analysis. \emph{TCC}, 2006. \href{https://doi.org/10.1007/11681878_14}{doi:10.1007/11681878\_14}.
-\end{thebibliography}
 \end{document}

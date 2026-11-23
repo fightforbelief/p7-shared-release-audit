@@ -1,0 +1,290 @@
+{
+  "flow": {
+    "nearest": {
+      "districts_all": 1956,
+      "incomplete_districts": 280,
+      "missing_row_count_or_percent": 365,
+      "schools_all": 9840,
+      "selected_districts": 417,
+      "selected_schools": 3571,
+      "size_excluded_districts": 1259,
+      "zero_or_invalid_group": 11
+    },
+    "union": {
+      "districts_all": 1956,
+      "incomplete_districts": 280,
+      "missing_row_count_or_percent": 365,
+      "schools_all": 9840,
+      "selected_districts": 417,
+      "selected_schools": 3571,
+      "size_excluded_districts": 1259,
+      "zero_or_invalid_group": 11
+    }
+  },
+  "comparisons": [
+    {
+      "rule": "nearest",
+      "setting": "0.10",
+      "n": 417,
+      "decisions": {
+        "2.5": {
+          "joint": 65,
+          "projection": 65,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "5": {
+          "joint": 192,
+          "projection": 192,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "7.5": {
+          "joint": 283,
+          "projection": 283,
+          "flips": 0,
+          "material_flips": 0
+        }
+      },
+      "unequal_radii": 0,
+      "material_radius": 0,
+      "median_radius_gain_pp": 0.0,
+      "max_endpoint_gain_pp": 4.163336342344337e-15,
+      "largest_radius_case": {
+        "rule": "nearest",
+        "district": "0691032",
+        "name": "San Luis Obispo County Office of Education",
+        "schools": 4,
+        "setting": "0.10",
+        "joint_lo": -0.12429094113529772,
+        "joint_hi": 0.09384879343860318,
+        "proj_lo": -0.12429094113529776,
+        "proj_hi": 0.09384879343860318,
+        "joint_radius_pp": 12.429094113529771,
+        "proj_radius_pp": 12.429094113529777,
+        "radius_gain_pp": 4.163336342344337e-15,
+        "endpoint_gain_pp": 4.163336342344337e-15
+      }
+    },
+    {
+      "rule": "nearest",
+      "setting": "0.25",
+      "n": 417,
+      "decisions": {
+        "2.5": {
+          "joint": 0,
+          "projection": 0,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "5": {
+          "joint": 38,
+          "projection": 38,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "7.5": {
+          "joint": 98,
+          "projection": 98,
+          "flips": 0,
+          "material_flips": 0
+        }
+      },
+      "unequal_radii": 0,
+      "material_radius": 0,
+      "median_radius_gain_pp": 0.0,
+      "max_endpoint_gain_pp": 0.010909931152879027,
+      "largest_radius_case": {
+        "rule": "nearest",
+        "district": "0615840",
+        "name": "Gravenstein Union Elementary",
+        "schools": 3,
+        "setting": "0.25",
+        "joint_lo": -0.3569421201419666,
+        "joint_hi": 0.5534494017709353,
+        "proj_lo": -0.3569421201419665,
+        "proj_hi": 0.5534494017709354,
+        "joint_radius_pp": 55.34494017709353,
+        "proj_radius_pp": 55.34494017709354,
+        "radius_gain_pp": 1.1102230246251565e-14,
+        "endpoint_gain_pp": 1.1102230246251565e-14
+      }
+    },
+    {
+      "rule": "nearest",
+      "setting": "1.00",
+      "n": 417,
+      "decisions": {
+        "2.5": {
+          "joint": 0,
+          "projection": 0,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "5": {
+          "joint": 0,
+          "projection": 0,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "7.5": {
+          "joint": 0,
+          "projection": 0,
+          "flips": 0,
+          "material_flips": 0
+        }
+      },
+      "unequal_radii": 0,
+      "material_radius": 0,
+      "median_radius_gain_pp": 0.0,
+      "max_endpoint_gain_pp": 0.15556839840832892,
+      "largest_radius_case": {
+        "rule": "nearest",
+        "district": "0607200",
+        "name": "Campbell Union",
+        "schools": 12,
+        "setting": "1.00",
+        "joint_lo": -0.24218998557836918,
+        "joint_hi": 0.6633440445069034,
+        "proj_lo": -0.24218998557836924,
+        "proj_hi": 0.6633440445069038,
+        "joint_radius_pp": 66.33440445069034,
+        "proj_radius_pp": 66.33440445069037,
+        "radius_gain_pp": 3.3306690738754696e-14,
+        "endpoint_gain_pp": 3.3306690738754696e-14
+      }
+    },
+    {
+      "rule": "nearest",
+      "setting": "equal_school",
+      "n": 417,
+      "decisions": {
+        "2.5": {
+          "joint": 45,
+          "projection": 45,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "5": {
+          "joint": 123,
+          "projection": 123,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "7.5": {
+          "joint": 201,
+          "projection": 201,
+          "flips": 0,
+          "material_flips": 0
+        }
+      },
+      "unequal_radii": 138,
+      "material_radius": 9,
+      "median_radius_gain_pp": 0.0,
+      "max_endpoint_gain_pp": 0.2188267858192927,
+      "largest_radius_case": {
+        "rule": "nearest",
+        "district": "0602670",
+        "name": "West Sonoma County Union High",
+        "schools": 5,
+        "setting": "equal_school",
+        "joint_lo": -0.11419415010282984,
+        "joint_hi": 0.45601981716499196,
+        "proj_lo": -0.11638241796102275,
+        "proj_hi": 0.4582080850231849,
+        "joint_radius_pp": 45.601981716499196,
+        "proj_radius_pp": 45.820808502318485,
+        "radius_gain_pp": 0.2188267858192927,
+        "endpoint_gain_pp": 0.2188267858192927
+      }
+    },
+    {
+      "rule": "union",
+      "setting": "0.10",
+      "n": 417,
+      "decisions": {
+        "2.5": {
+          "joint": 59,
+          "projection": 59,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "5": {
+          "joint": 185,
+          "projection": 185,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "7.5": {
+          "joint": 280,
+          "projection": 280,
+          "flips": 0,
+          "material_flips": 0
+        }
+      },
+      "unequal_radii": 0,
+      "material_radius": 0,
+      "median_radius_gain_pp": 0.0,
+      "max_endpoint_gain_pp": 5.551115123125783e-15,
+      "largest_radius_case": {
+        "rule": "union",
+        "district": "0615840",
+        "name": "Gravenstein Union Elementary",
+        "schools": 3,
+        "setting": "0.10",
+        "joint_lo": -0.1819740483010452,
+        "joint_hi": 0.27697734012356956,
+        "proj_lo": -0.1819740483010452,
+        "proj_hi": 0.2769773401235696,
+        "joint_radius_pp": 27.697734012356957,
+        "proj_radius_pp": 27.69773401235696,
+        "radius_gain_pp": 5.551115123125783e-15,
+        "endpoint_gain_pp": 5.551115123125783e-15
+      }
+    },
+    {
+      "rule": "union",
+      "setting": "equal_school",
+      "n": 417,
+      "decisions": {
+        "2.5": {
+          "joint": 38,
+          "projection": 38,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "5": {
+          "joint": 116,
+          "projection": 116,
+          "flips": 0,
+          "material_flips": 0
+        },
+        "7.5": {
+          "joint": 197,
+          "projection": 197,
+          "flips": 0,
+          "material_flips": 0
+        }
+      },
+      "unequal_radii": 138,
+      "material_radius": 9,
+      "median_radius_gain_pp": 0.0,
+      "max_endpoint_gain_pp": 0.2188267858192927,
+      "largest_radius_case": {
+        "rule": "union",
+        "district": "0602670",
+        "name": "West Sonoma County Union High",
+        "schools": 5,
+        "setting": "equal_school",
+        "joint_lo": -0.11463180367446842,
+        "joint_hi": 0.45720327300843083,
+        "proj_lo": -0.11682007153266134,
+        "proj_hi": 0.45939154086662376,
+        "joint_radius_pp": 45.72032730084308,
+        "proj_radius_pp": 45.93915408666238,
+        "radius_gain_pp": 0.2188267858192927,
+        "endpoint_gain_pp": 0.2188267858192927
+      }
+    }
+  ]
+}

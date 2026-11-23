@@ -1,0 +1,78 @@
+5898c11715b6c81407bcbad02dd3cc8c91cf9966
+{
+  "primary_districts": 417,
+  "decisions": {
+    "separate_pass": 0,
+    "scan_pass": 162,
+    "scan_violation": 225,
+    "scan_undecided": 30,
+    "exact_pass": 192,
+    "undecided_exact_pass": 30
+  },
+  "median_width_pp": {
+    "separate": 27.801694486616626,
+    "scan": 9.531534840931233,
+    "joint": 8.359403171368989
+  },
+  "direction_changes": {
+    "nearest": [
+      {
+        "district": "0628320",
+        "name": "Old Adobe Union",
+        "joint": 1,
+        "projected": 0,
+        "joint_pp": [
+          0.001900313200481861,
+          2.065125726586837
+        ],
+        "projection_pp": [
+          -0.007746652886019868,
+          2.074772692673338
+        ]
+      }
+    ],
+    "union": []
+  },
+  "old_adobe_rational_change": {
+    "nearest": {
+      "joint_lo": "6108615910612715627347/321453111468334308212916468",
+      "joint_hi": "19915232711539361023968841/964359334405002924638749404",
+      "proj_lo": "-24901856736740799101333/321453111468334308212916468",
+      "proj_hi": "20008264129481421568154881/964359334405002924638749404"
+    },
+    "union": {
+      "joint_lo": "-81757816103422708375045/160726555734167154106458234",
+      "joint_hi": "20626156911729814319090305/964359334405002924638749404",
+      "proj_lo": "-100364099691834817212253/160726555734167154106458234",
+      "proj_hi": "20737794613260286972113553/964359334405002924638749404"
+    }
+  }
+}
+ 66bbb5285209314bd8be993cde676d1777e6421042750f1077c28c26e0b69fc9 edfacts_screen.json
+c3c07918036d6c76f0290236400179297fcdb68d
+Python 3.12.10
+test_global_oracle_and_witness (test_audit.TestAudit.test_global_oracle_and_witness) ... ok
+test_interior_required (test_audit.TestAudit.test_interior_required) ... ok
+test_known_equal_composition_and_invalid (test_audit.TestAudit.test_known_equal_composition_and_invalid) ... ok
+test_rounding_preimage (test_audit.TestAudit.test_rounding_preimage) ... ok
+test_source_selection (test_audit.TestAudit.test_source_selection) ... ok
+test_zero_and_one_site (test_audit.TestAudit.test_zero_and_one_site) ... ok
+test_second_order_is_necessary (test_audit.TestCurvature.test_second_order_is_necessary) ... ok
+test_bands_and_ties (test_edfacts.EDFactsChecks.test_bands_and_ties) ... ok
+test_fixed_policy_at_anchor (test_edfacts.EDFactsChecks.test_fixed_policy_at_anchor) ... ok
+test_full_simplex_integer_oracle (test_totals.TotalChecks.test_full_simplex_integer_oracle) ... ok
+test_polygon_linear_support (test_totals.TotalChecks.test_polygon_linear_support) ... ok
+test_total_and_missing_groups (test_totals.TotalChecks.test_total_and_missing_groups) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.220s
+
+OK
+nearest 0.10 417 {'joint': 192, 'projection': 192, 'flips': 0, 'material_flips': 0} gain max pp 4.163336342344337e-15 material 0
+nearest 0.25 417 {'joint': 38, 'projection': 38, 'flips': 0, 'material_flips': 0} gain max pp 1.1102230246251565e-14 material 0
+nearest 1.00 417 {'joint': 0, 'projection': 0, 'flips': 0, 'material_flips': 0} gain max pp 3.3306690738754696e-14 material 0
+nearest equal_school 417 {'joint': 123, 'projection': 123, 'flips': 0, 'material_flips': 0} gain max pp 0.2188267858192927 material 9
+union 0.10 417 {'joint': 185, 'projection': 185, 'flips': 0, 'material_flips': 0} gain max pp 5.551115123125783e-15 material 0
+union equal_school 417 {'joint': 116, 'projection': 116, 'flips': 0, 'material_flips': 0} gain max pp 0.2188267858192927 material 9
+52bd7d1caea330ab7de5a246c13dedf10fd4d7450e9f11cc99d33dc4e66d39cb edfacts_districts.csv
+f7428f1f1e09ab5f0260e93083c8c8c9eed031e41850a14e8a8467846641597c edfacts_summary.json
